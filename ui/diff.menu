@@ -1,0 +1,372 @@
+//
+// NEW GAME MENU 2: DIFFICULTY SETTINGS
+//
+
+{						   
+	menuDef 
+	{
+		name					"diffMenu"
+		fullScreen				1									
+		rect					0 0 640 480					
+		visible					1						
+		focusColor				1 1 1 1			
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen
+		{ 
+			setcvar				g_spskill 0
+			setcvar				cg_crosshairForceHint 1
+			setcvar				handicap 100
+			setfocus			easybut
+			uiScript  			"getsabercvars"
+		}
+									
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 
+			close				diffMenu ; 
+			open				newgameMenu ;
+		}
+
+
+//
+// NEW GAME MENU 2 BACKGROUND
+//	
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_setup"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+
+//
+// SINGLE PLAYER TITLE
+//
+
+		itemDef 
+		{
+			name				setuptitle
+			group				none			
+			rect				75 30 512 64
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/sp_glow"
+		}	
+
+//
+// DIFFICULTY TITLE
+//
+
+		itemDef 
+		{
+			name 				difftitle
+			group				none
+			text 				"Difficulty:"
+			rect 				285 135 640 80
+			font				4
+			textstyle 			3
+			textscale 			2.0
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+//
+// "EASY"-BUTTON
+//
+
+		itemDef 
+		{
+			name				easybut
+			group				diff
+			text				"Easy"
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				283 199 175 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				setcvar			g_spskill 0
+				setcvar			cg_crosshairForceHint 1
+				setcvar			handicap 100	
+			}
+		}
+
+//
+// "MEDIUM"-BUTTON
+//
+
+		itemDef 
+		{
+			name				mediumbut
+			group				diff
+			text				"Medium"
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				283 238 175 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				setcvar			g_spskill 1
+				setcvar			cg_crosshairForceHint 1
+				setcvar			handicap 100	
+			}
+		}
+
+//
+// "HARD"-BUTTON
+//
+
+		itemDef 
+		{
+			name				hardbut
+			group				diff
+			text				"Hard"
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				283 278 175 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				setcvar			g_spskill 2
+				setcvar			cg_crosshairForceHint 0
+				setcvar			handicap 50	
+			}
+		}
+
+   
+//
+// LEVEL OF DIFFICULTY - EASY
+//
+
+		itemDef 
+		{
+			name				easy_but
+			group				none			
+			rect				265 205 16 16
+			style				WINDOW_STYLE_FILLED
+			type				ITEM_TYPE_BUTTON
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/no_check"
+			
+			action
+			{
+				play			"sound/interface/button1.wav";
+				setcvar			g_spskill 0
+				setcvar			cg_crosshairForceHint 1
+				setcvar			handicap 100
+			}
+		}  
+
+		itemDef 
+		{
+			name				easy_but_chk
+			group				none			
+			rect				265 205 16 16
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/checked"
+			cvarTest			"g_spskill"
+			hideCvar
+			{ 
+				"1";
+				"2"
+			}  	  	
+		}  
+
+//
+// LEVEL OF DIFFICULTY - MEDIUM
+//
+
+		itemDef 
+		{
+			name				medium_but
+			group				none			
+			rect				265 245 16 16
+			style				WINDOW_STYLE_FILLED
+			type				ITEM_TYPE_BUTTON
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/no_check"
+
+			action
+			{
+				play			"sound/interface/button1.wav";
+				setcvar			g_spskill 1
+				setcvar			cg_crosshairForceHint 1
+				setcvar			handicap 100
+			}
+		}  
+
+		itemDef 
+		{
+			name				medium_but_chk
+			group				none			
+			rect				265 245 16 16
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/checked"
+			cvarTest			"g_spskill"
+			hideCvar
+			{ 
+				"0";
+				"2"
+			} 
+		}  
+
+//
+// LEVEL OF DIFFICULTY - HARD
+//
+
+		itemDef 
+		{
+			name				hard_but
+			group				none			
+			rect				265 285 16 16
+			style				WINDOW_STYLE_FILLED
+			type				ITEM_TYPE_BUTTON
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/no_check"
+
+			action
+			{
+				play			"sound/interface/button1.wav";
+				setcvar			g_spskill 2
+				setcvar			cg_crosshairForceHint 0
+				setcvar			handicap 50
+			}
+		}  
+
+		itemDef 
+		{
+			name				hard_but_chk
+			group				none			
+			rect				265 285 16 16
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/checked"
+			cvarTest			"g_spskill"
+			hideCvar
+			{ 
+				"0";
+				"1"
+			} 
+		}  
+
+//
+// PLAY BUTTON
+//
+
+		itemDef 
+		{
+			name				newgamebutton
+			group				nbut
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				482 440 200 32
+			text				"Play"
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+
+			action 
+			{ 
+				// Update lightsaber cvars so that JA SP settings won't affect MOTS SP settings.
+				setcvar			g_saber_type	"single"
+				setcvar			ui_saber_type	"single"
+				setcvar			ui_saber	"single_1"
+				setcvar			ui_saber2	"none"
+				setcvar			g_saber2 	"none"
+				setcvar			ui_newfightingstyle "1"
+				uiScript 		"updatefightingstyle"
+
+				play			"sound/interface/button1.wav" ; 
+				close			all ;
+				exec        		"exec gamestart.cfg"
+			}	  	  
+		}
+
+//
+// BACK BUTTON
+//
+
+		itemDef 
+		{
+			name				backbutton
+			group				grpback
+			text				"Cancel"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				45 440 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/esc.wav";
+				close			all ; 
+				open			newGameMenu 
+			}
+		}
+
+	}
+}

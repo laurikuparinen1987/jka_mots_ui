@@ -1,0 +1,181 @@
+//
+// LEVEL COMPLETED MENU - TAKARA'S STRONGHOLD
+//
+
+{						   
+	menuDef 
+	{
+		name					"takaras_strongholdc"
+		fullScreen				1									
+		rect					0 0 640 480					
+		visible					1						
+		focusColor				1 1 1 1			
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+	  onOpen 
+		{
+			stopVoice
+		}
+	  
+    //
+    // BACKGROUND
+    //	
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_rank"    
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+    
+    //
+    // DISPLAYS THE NAME, RANK AND THE NUMBER OF SECRETS FOUND IN LEVEL
+    //
+    
+    // Displays character name (should be "Mara Jade" or "Kyle Katarn")
+
+    itemDef
+		{
+			name				char_name
+			type				ITEM_TYPE_TEXT		
+			rect				0 30 640 18
+			cvar				name
+			font				2
+			textscale   1
+			forecolor			.623 .070 .686 1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textstyle     3
+			visible				1
+			decoration
+		}	
+		
+		// Displays the rank (Journeyman, Learner etc...)
+		
+		itemDef
+		{
+			name				rank
+			type				ITEM_TYPE_TEXT		
+			rect				0 70 640 18
+			text        "Apprentice"
+			font				2
+			textscale   0.8
+			forecolor			.623 .070 .686 1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textstyle     3
+			visible				1
+			decoration
+		}	
+    
+    // Number of secrets found
+    
+    itemDef
+		{
+			name				secretsfound
+			group				stats
+			rect				0 125 640 18
+			type				ITEM_TYPE_EDITFIELD
+			text				@SP_INGAME_SECRETAREAS
+			cvar				"ui_stats_secretsfound"
+			font				2
+			forecolor			.623 .070 .686 1
+			textscale			0.8
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textaligny			-1
+			textstyle     3
+			visible				1
+			decoration
+			cvartest			"ui_stats_secretsfound"
+			hidecvar
+			{
+				"0"
+			}
+		}
+    
+    // Incase the level didn't have any secret areas, display this.
+    itemDef
+		{
+			name				secretsfound_0out0
+			group				stats
+			rect				0 125 640 18
+			type				ITEM_TYPE_TEXT
+			text				"Secret Areas Found: 0 of 0"
+			font				2
+			forecolor			.623 .070 .686 1
+			textscale			0.8
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textaligny			-1
+			textstyle     3
+			visible				1
+			decoration
+			cvartest			"ui_stats_secretsfound"
+			showcvar
+			{
+				"0"
+			}
+		}
+    
+    //
+    // Quit & OK Button
+    //
+    
+    itemDef 
+		{
+			name				quitbutton
+			group				bottomorow
+			text				"Quit"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				5 445 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+			action 
+			{ 
+				close			all 
+				uiScript		Leave     // Back to main menu
+			}
+		}
+    	
+    itemDef 
+		{
+			name				okbutton
+			group				bottomorow
+			text				"OK"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				515 445 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				setcvar   tier_storyinfo "9";  // We just completed the 9th level of the game
+				close			all
+				open			ingameForceSelect 
+			}
+		}
+  }
+}

@@ -1,0 +1,143 @@
+//
+// MOTS TC QUIT MENU
+//
+
+{			   
+	menuDef 
+	{
+		name					"quitMenu"
+		fullScreen				1		
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER							
+		onESC 
+		{ 
+			play				"sound/interface/menuroam.wav" ; 
+			close				main2Menu ; 
+			open				quitMenu ;
+		}
+
+//
+// MAIN MENU BACKGROUND
+//
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_main"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+// QUIT BACKGROUND BOX
+
+    itemDef 
+		{
+			name				background_box
+			group				none
+			style				WINDOW_STYLE_SHADER
+			//rect				144 160 352 202
+			rect				154 160 330 160
+			background			"gfx/menus/mots_quit"
+			//forecolor			1 1 1 .9
+			forecolor     .490 .278 .560 .8
+			visible				1
+			decoration
+		}
+
+//
+// QUIT TITLE
+//
+
+		itemDef 
+		{
+			name 				caption
+			group				box
+			text 				"Quit Mysteries of the Sith?"
+			rect 				148 168 348 198
+			font				2
+			textstyle 			3
+			textscale 			.7
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			175
+			textaligny	 		0
+			forecolor		  1 1 1 1
+			visible 			1
+			decoration
+		}
+
+    itemDef 
+		{
+			name 				confirm
+			group				box
+			text 				"Are you sure you want to quit Mysteries of the Sith?"
+			rect 				148 200 348 198
+			font				2
+			textstyle 			3
+			textscale 			.9
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			170
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+			autowrapped
+		}
+
+		itemDef 
+		{
+			name				quitgame_no
+			group				box
+			text				"No"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				200 275 130 24
+			font				4
+			textscale			1.25
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			1 1 1 1
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				close			quitMenu ; 
+				open			main2Menu ;
+			}	  	  
+		}
+		
+    itemDef 
+		{
+			name				quitgame_yes
+			group				box
+			text				"Yes"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				310 275 130 24
+			font				4
+			textscale			1.25
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			1 1 1 1
+			visible				1
+		  action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		Quit			
+			}	  	  
+		}
+	}
+}

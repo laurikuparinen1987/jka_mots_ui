@@ -1,0 +1,605 @@
+//
+// INGAME MAIN MENU FOR MOTS TC
+//
+
+{
+	assetGlobalDef 
+	{
+		smallFont				"aurabesh" 	18	
+		mediumFont				"ergoec" 	18
+		bigFont					"anewhope" 	20
+		smallFont				"arialnb" 	18
+
+		cursor					"cursor"	
+		itemFocusSound				"sound/interface/menuroam.wav"
+		itemFocusForce				"fffx/interface/menuroam"
+		
+		forceChosenSound			"sound/effects/hologram_on"
+		forceUnchosenSound			"sound/effects/hologram_off"
+		
+		datapadmoveRollSound			"sound/player/roll1"
+		datapadmoveJumpSound			"sound/weapons/force/jump"
+
+		datapadmoveSaberSound1			"sound/weapons/saber/saberhup1"
+		datapadmoveSaberSound2			"sound/weapons/saber/saberhup2"
+		datapadmoveSaberSound3			"sound/weapons/saber/saberhup3"
+		datapadmoveSaberSound4			"sound/weapons/saber/saberhup4"
+		datapadmoveSaberSound5			"sound/weapons/saber/saberhup5"
+		datapadmoveSaberSound6			"sound/weapons/saber/saberhup6"
+
+		fadeClamp				1.0						
+		fadeCycle				1						
+		fadeAmount				0.1						
+		shadowColor				0.1 0.1 0.1 0.0
+		focuscolor				0 0 1 1
+		precacheSound
+		{
+			"sound/interface/choose_color.wav"
+			"sound/interface/choose_head.wav"
+			"sound/interface/choose_torso.wav"
+			"sound/interface/choose_saber.wav"
+			"sound/interface/choose_hilt.wav"
+			"sound/interface/choose_blade.wav"
+			"sound/interface/transition.wav" 
+			"sound/interface/esc.wav"
+			"sound/interface/sub_select.wav"
+		}
+  	}
+
+
+	menuDef 
+	{
+		name					"ingameMainMenu"
+		fullScreen				1							
+		rect					0 0 640 480			
+		visible					1				
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen 
+		{
+			setfocus			resume ;			
+		}
+
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 					
+			uiScript			closeingame			
+		}
+												
+
+//
+// INGAME MENU BACKGROUND
+//
+
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_igmain"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// INGAME MAIN MENU OPTIONS: OBJECTIVES, FORCE POWERS, LOAD, SAVE, SETUP, ABORT & RETURN TO GAME
+//
+
+//
+// LOAD BUTTON
+//
+
+
+		itemDef 
+		{
+			name				load_glow
+			group				none			
+			rect				427 214 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/load_glow"
+
+			mouseExit 
+			{
+				show			load
+				hide			load_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingameloadMenu ; 					
+			}
+		}		
+
+		itemDef 
+		{
+			name				load
+			group				none			
+			rect				427 214 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/load"
+			
+			mouseEnter 
+			{ 
+				show			load_glow
+				hide			load
+				// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			setup_glow
+				hide			abort_glow
+		    hide			obj_glow
+		    hide			force_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			save
+				show			setup
+				show			abort
+		    show			obj
+		    show			force
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			load_glow
+				show			load
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingameloadMenu ; 					
+			}
+		}
+
+//
+// SAVE BUTTON
+//
+
+
+		itemDef 
+		{
+			name				save_glow
+			group				none			
+			rect				424 278 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/save_glow"
+
+			mouseExit 
+			{
+				show			save
+				hide			save_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingamesaveMenu ; 					
+			}
+		}		
+
+		itemDef 
+		{
+			name				save
+			group				none			
+			rect				424 278 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/save"
+			
+			mouseEnter 
+			{ 
+				show			save_glow
+				hide			save
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			load_glow
+				hide			setup_glow
+				hide			abort_glow
+		    hide			obj_glow
+		    hide			force_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			load
+				show			setup
+				show			abort
+		    show			obj
+		    show			force
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			save_glow
+				show			save
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingamesaveMenu ; 					
+			}
+		}
+
+//
+// SETUP BUTTON
+//
+		
+		
+		itemDef 
+		{
+			name				setup_glow
+			group				none			
+			rect				431 342 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/setup_glow"
+
+			mouseExit 
+			{
+				show			setup
+				hide			setup_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			igmsetupMenu ; 					
+			}
+		}		
+
+		itemDef 
+		{
+			name				setup
+			group				none			
+			rect				431 342 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/setup"
+			
+			mouseEnter 
+			{ 
+				show			setup_glow
+				hide			setup
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			load_glow
+				hide			abort_glow
+		    hide			obj_glow
+		    hide			force_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			save
+				show			load
+				show			abort
+		    show			obj
+		    show			force
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			setup_glow
+				show			setup
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			igmsetupMenu ; 					
+			}
+		}
+
+//
+// ABORT BUTTON
+//
+
+		itemDef 
+		{
+			name				abort_glow
+			group				none			
+			rect				430 406 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/abort_glow"
+
+			mouseExit 
+			{
+				show			abort	
+				hide			abort_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingamequitMenu						
+			}
+		}		
+
+		itemDef 
+		{
+			name				abort
+			group				none			
+			rect				430 406 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/abort"
+			
+			mouseEnter 
+			{ 
+				show			abort_glow
+				hide			abort
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			setup_glow
+				hide			load_glow
+		    hide			obj_glow
+		    hide			force_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			save
+				show			setup
+				show			load
+		    show			obj
+		    show			force
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			abort_glow
+				show			abort
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			ingamequitMenu						
+			}
+		}		
+
+//
+// OBJECTIVES BUTTON
+//
+
+		itemDef 
+		{
+			name				obj_glow
+			group				none			
+			rect				59 39 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/obj_glow"
+
+			mouseExit 
+			{
+				show			obj	
+				hide			obj_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			datapadmissionMenu ;					
+			}
+		}		
+
+		itemDef 
+		{
+			name				obj
+			group				none			
+			rect				59 39 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/obj"
+			
+			mouseEnter 
+			{ 
+				show			obj_glow
+				hide			obj
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			setup_glow
+				hide			abort_glow
+		    hide			load_glow
+		    hide			force_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			save
+				show			setup
+				show			abort
+		    show			load
+		    show			force
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			obj_glow
+				show			obj
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			datapadmissionMenu ;					
+			}
+		}		
+
+//
+// FORCE POWERS BUTTON
+//
+
+		itemDef 
+		{
+			name				force_glow
+			group				none			
+			rect				59 106 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/jedip_glow"
+
+			mouseExit 
+			{
+				show			force
+				hide			force_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			datapadforcepowersMenu ; 					
+			}
+		}		
+
+		itemDef 
+		{
+			name				force
+			group				none			
+			rect				59 106 256 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/jedip"
+			
+			mouseEnter 
+			{ 
+				show			force_glow
+				hide			force
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			setup_glow
+				hide			abort_glow
+		    hide			obj_glow
+		    hide			load_glow
+		    hide			return_glow
+		    // And show the buttons in their normal state
+		    show			save
+				show			setup
+				show			abort
+		    show			obj
+		    show			load
+		    show			return
+			}
+			mouseExit 
+			{ 
+				hide			force_glow
+				show			force
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			datapadforcepowersMenu ; 					
+			}
+		}
+
+//
+// RETURN TO GAME BUTTON
+//
+
+		itemDef 
+		{
+			name				return_glow
+			group				none			
+			rect				1 227 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/return_glow"
+
+			mouseExit 
+			{
+				show			return
+				hide			return_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		closeingame 					
+			}
+		}		
+
+		itemDef 
+		{
+			name				return
+			group				none			
+			rect				1 227 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/return"
+			
+			mouseEnter 
+			{ 
+				show			return_glow
+				hide			return
+					// Let's hide the other glow's (in case some of them just "stayed on"!)
+				hide			save_glow
+				hide			setup_glow
+				hide			abort_glow
+		    hide			obj_glow
+		    hide			force_glow
+		    //hide			load_glow    // This could cause problems due to minor clashing of these two :P
+		    // And show the buttons in their normal state
+		    show			save
+				show			setup
+				show			abort
+		    show			obj
+		    show			force
+		    //show			load
+			}
+			mouseExit 
+			{ 
+				hide			return_glow
+				show			return
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		closeingame					
+			}
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

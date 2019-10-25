@@ -1,0 +1,149 @@
+//
+// NEW GAME MENU FOR MOTS TC
+//
+
+{						   
+	menuDef 
+	{
+		name					"newgameMenu"
+		fullScreen				1									
+		rect					0 0 640 480					
+		visible					1						
+		focusColor				1 1 1 1			
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen
+		{ 
+		}
+									
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 
+			close				newgameMenu ; 
+			open				main2Menu ;
+		}
+
+//
+// NEW GAME MENU BACKGROUND
+//	
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_newg"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// NEW SINGLE PLAYER TITLE
+//
+
+		itemDef 
+		{
+			name				sptitle
+			group				none			
+			rect				130 30 512 64
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/sp_glow"
+		}
+		
+//
+// NEW GAME BUTTON
+//
+
+		itemDef 
+		{
+			name				ngbutton
+			group				nbut
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				220 110 200 32
+			text				"New Game"
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			newgameMenu ; 
+				open			diffMenu
+			}	  	  
+		}
+
+//
+// LOAD GAME BUTTON
+//
+
+		itemDef 
+		{
+			name				loadgamebutton
+			group				lbut
+			text				"Load"
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				495 110 200 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			loadgameMenu 
+			}
+		}
+
+//
+// BACK BUTTON
+//
+
+		itemDef 
+		{
+			name				backbutton
+			group				grpback
+			text				"Cancel"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				222 350 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 
+				close			all ; 
+				open			main2Menu 
+			}
+		}
+
+	}
+}

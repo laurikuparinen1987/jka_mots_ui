@@ -1,0 +1,355 @@
+//
+// MOTS TC CREDITS MENU 2
+//
+
+{			   
+	menuDef 
+	{
+		name					"mots_creditsMenu2"
+		fullScreen				1		
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER							
+		// This seems to be causing problems...
+    /*
+    onESC 
+		{ 
+			play				"sound/interface/menuroam.wav" ; 
+			open				main2Menu ; 
+		}
+    */
+
+//
+// BACKGROUND
+//
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_main"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// CREDITS TITLE
+//
+
+		itemDef 
+		{
+			name 				dev_team_title
+			group				none
+			text 				"Development Team"
+			rect 				270 170 640 20
+			font				2
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		
+
+		itemDef 
+		{
+			name 				contributors
+			group				credits
+			text 				"Contributors"
+			rect 				270 195 640 20
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev2_1
+			group				credits
+			text 				"Inyri Forge:"
+			rect 				80 220 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_2
+			group				credits
+			text 				"Textures"
+			rect 				180 220 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev3_1
+			group				credits
+			text 				"Shamus:"
+			rect 				80 240 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev3_2
+			group				credits
+			text 				"Level Conversion Tool"
+			rect 				180 240 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev4_1
+			group				credits
+			text 				"DFII Team:"
+			rect 				80 260 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev4_2
+			group				credits
+			text 				"Textures"
+			rect 				180 260 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev5_1
+			group				credits
+			text 				"HapSlash:"
+			rect 				80 280 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev5_2
+			group				credits
+			text 				"Models"
+			rect 				180 280 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev6_1
+			group				credits
+			text 				"pandapop999:"
+			rect 				80 300 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev6_2
+			group				credits
+			text 				"Saber Realism Mod"
+			rect 				180 300 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev7_1
+			group				credits
+			text 				"katanamaru:"
+			rect 				80 320 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev7_2
+			group				credits
+			text 				"Animations"
+			rect 				180 320 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+//
+// CLOSE CREDITS MENU
+//
+
+		itemDef 
+		{
+			name				close
+			group				none
+			text				"Close"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				55 444 130 24
+			font				4
+			textscale			1.5
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			.590 .278 .560 1
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				close			mots_creditsMenu2 ; 
+				open			main2Menu ;
+			}	  	  
+		}
+
+//
+// PREVIOUS PAGE
+//
+
+		itemDef 
+		{
+			name				previous
+			group				none
+			text				"Previous"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				400 444 130 24
+			font				4
+			textscale			1.5
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			.590 .278 .560 1
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				close			mots_creditsMenu2 ; 
+				open			mots_creditsMenu ;
+			}	  	  
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

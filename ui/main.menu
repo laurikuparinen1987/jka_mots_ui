@@ -1,0 +1,342 @@
+//
+// MOTS TC MAIN MENU
+//
+
+{
+	assetGlobalDef 
+	{
+		smallFont				"aurabesh" 	18	
+		mediumFont				"ergoec" 	18
+		bigFont					"anewhope" 	20
+		smallFont				"arialnb" 	14	
+
+		cursor					"cursor"	
+		itemFocusSound				"sound/interface/menuroam.wav"
+		itemFocusForce				"fffx/interface/menuroam"
+
+		fadeClamp				1.0						
+		fadeCycle				1						
+		fadeAmount				0.1						
+		precacheSound
+		{
+			"sound/interface/choose_color.wav"
+			"sound/interface/choose_head.wav"
+			"sound/interface/choose_torso.wav"
+			"sound/interface/choose_saber.wav"
+			"sound/interface/choose_hilt.wav"
+			"sound/interface/choose_blade.wav"
+			"sound/interface/transition.wav" 
+			"sound/interface/esc.wav"
+			"sound/interface/sub_select.wav"
+		}
+		focuscolor				0 0 1 1
+		shadowColor				0.1 0.1 0.1 0.0
+  	}
+
+							   
+	menuDef 
+	{
+		name					"mainMenu"
+		fullScreen				1		
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER							
+		
+//
+// THIS MOD MAKES ENGLISH AUTOMATICALLY THE ONLY USABLE/SELECTABLE LANGUAGE
+//
+
+		onOpen
+		{
+			setcvar				se_language english
+			setcvar       d_slowmodeath 0      // Since original MOTS didn't have slowmotion death's ;)
+			exec          "music music/mainmenu"
+			
+			// Fade in for the buttons
+			setitemcolor creditsbutton 	forecolor .590 .278 .560 0.0
+			setitemcolor setupbutton 	forecolor .590 .278 .560 0.0
+			
+      setitemcolor sp 	backcolor 1 1 1 0
+			setitemcolor quit 	backcolor 1 1 1 0
+      
+      fadein creditsbutton	
+			fadein setupbutton
+			fadein sp
+			fadein quit
+		}
+
+		onESC 
+		{ 
+			play				"sound/interface/menuroam.wav" ; 
+			close				mainMenu ; 
+			open				quitMenu ;
+		}
+
+//
+// MAIN MENU BACKGROUND
+//
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_main"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+		
+//
+// MAIN MENU BUTTONS...NO MP, SRY
+//
+
+
+//
+// NEW SINGLE PLAYER BUTTON - A BIT LIKE ONE IN THE ORIGINAL MOTS
+//
+
+
+		itemDef 
+		{
+			name				sp_glow
+			group				none			
+			rect				65 190 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/sp_glow"
+
+			mouseExit 
+			{
+				show			sp	
+				hide			sp_glow  
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			newgameMenu						
+			}
+		}		
+
+		itemDef 
+		{
+			name				sp
+			group				none			
+			rect				65 190 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/sp"
+			
+			mouseEnter 
+			{ 
+				show			sp_glow
+				hide			sp
+				hide      quit_glow
+				show      quit
+			}
+			mouseExit 
+			{ 
+				hide			sp_glow
+				show			sp
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			newgameMenu						
+			}
+		}		
+		
+//
+// NEW QUIT BUTTON WITH GLOW
+//
+
+		itemDef 
+		{
+			name				quit_glow
+			group				none			
+			rect				65 270 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			0
+			background			"gfx/menus/quit_glow"
+
+			mouseExit 
+			{
+				show			quit	
+				hide			quit_glow
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			quitMenu						
+			}
+		}		
+
+		itemDef 
+		{
+			name				quit
+			group				none			
+			rect				65 270 512 64
+			type 				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/quit"
+			
+			mouseEnter 
+			{ 
+				show			quit_glow
+				hide			quit
+				hide			sp_glow
+				show			sp
+			}
+			mouseExit 
+			{ 
+				hide			quit_glow
+				show			quit
+			}
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			quitMenu						
+			}
+		}		
+		
+//
+// CREDITS BUTTON
+//
+
+
+		itemDef 
+    {
+			name				creditsbutton
+			group				bottomrow
+			text				"Credits"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				250 390 130 24
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			backcolor			0 0 0 0
+			forecolor			.590 .278 .560 1
+			visible				1
+	  	
+      mouseEnter 
+			{ 
+				hide			sp_glow
+				show			sp
+				hide      quit_glow
+				show      quit
+			}
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			mots_creditsMenu ; 
+			}
+		}
+
+//
+// SETUP BUTTON
+//
+
+
+		itemDef {
+			name				setupbutton_wide
+			group				bottomrow
+			text				"Setup"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				550 390 130 24
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			3
+			textalignx			65
+			backcolor			0 0 0 0
+			forecolor			.590 .278 .560 1
+			visible				1
+			
+			cvarTest     "r_mode"    // Let's see if widescreen mode is activated...
+      showCvar
+      {
+          "-1"      // ...negative value means that widescreen is on!
+      }
+      
+      mouseEnter 
+			{ 
+				hide			sp_glow
+				show			sp
+				hide      quit_glow
+				show      quit
+			}  	  
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				setcvar   r_wide 1 ;  // Widescreen on
+				close			all ; 
+				open			mainsetupMenu ; 
+			}
+		}
+		
+		itemDef {
+			name				setupbutton
+			group				bottomrow
+			text				"Setup"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				550 390 130 24
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			3
+			textalignx			65
+			backcolor			0 0 0 0
+			forecolor			.590 .278 .560 1
+			visible				1
+			
+			cvarTest     "r_mode"    // Let's see if widescreen mode is activated...
+      hideCvar                 // Hide this if...
+      {
+          "-1"                // ...widescreen mode is on.
+      }
+      
+      mouseEnter 
+			{ 
+				hide			sp_glow
+				show			sp
+				hide      quit_glow
+				show      quit
+			}  	  
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				setcvar   r_wide 0 ;  // Widescreen off
+				close			all ; 
+				open			mainsetupMenu ; 
+			}
+		}
+		
+	}
+}

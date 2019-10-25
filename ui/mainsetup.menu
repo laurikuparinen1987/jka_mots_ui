@@ -1,0 +1,170 @@
+//
+// MAIN SETUP MENU FOR MOTS TC
+//
+
+{						   
+	menuDef 
+	{
+		name					"mainsetupMenu"
+		fullScreen				1									
+		rect					0 0 640 480					
+		visible					1						
+		focusColor				1 1 1 1			
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen
+		{ 
+		}
+									
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 
+			close				mainsetupMenu ; 
+			open				main2Menu ;
+		}
+
+
+//
+// MAIN SETUP MENU BACKGROUND
+//	
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_setup"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+
+//
+// MAIN SETUP MENU TITLE
+//
+
+		itemDef 
+		{
+			name				setuptitle
+			group				none			
+			rect				180 30 256 64
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/setup"
+		}
+
+		/*
+		itemDef 
+		{
+			name 				msmtitle
+			group				none
+			text 				"Setup"
+			rect 				275 30 640 80
+			font				4
+			textstyle 			1
+			textscale 			3.0
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		*/
+
+//
+// CONTROLS BUTTON
+//
+
+		itemDef 
+		{
+			name				controlsbutton
+			group				cbut
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				150 125 200 32
+			text				"Controls"
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			1
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			controlsMenu
+			}	  	  
+		}
+
+//
+// SETUP BUTTON
+//
+
+		itemDef 
+		{
+			name				setupbutton
+			group				sbut
+			text				"Setup"
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				385 125 200 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			1
+			textalignx			65
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				close			all ; 
+				open			setupMenu 
+			}
+		}
+
+//
+// OK Button
+//
+
+		itemDef 
+		{
+			name				okbutton
+			group				grpok
+			text				"OK"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				535 445 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 
+				close			all ; 
+				open			main2Menu 
+			}
+		}
+
+	}
+}

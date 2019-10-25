@@ -1,0 +1,382 @@
+//
+// MOTS TC LOADING SCREEN
+//
+
+{				   
+	menuDef 
+	{
+		name					"loadscreen"
+		fullScreen				0
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				.79 .64 .22 .7
+		descAlignment				ITEM_ALIGN_CENTER	
+		disablecolor				.5 .5 .5 1
+		onOpen
+		{
+      setcvar     g_saberanimspeed ".85"    // A bit slower lightsaber animations
+    }
+    onClose 
+		{
+		}
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/load_back"
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+		
+		// Mission name
+		itemDef 
+		{
+			name 				mapname_altyr5
+			group				none
+			text 				"1 - New Republic Base on Altyr 5"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "altyr5"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_asteroidcrust
+			group				none
+			text 				"2 - Asteroid Crust"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "asteroid_crust"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_asteroidcore
+			group				none
+			text 				"3 - Asteroid Core"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "asteroid_core"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_asteroiddestruct
+			group				none
+			text 				"4 - Asteroid Destruct"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "asteroid_destruct"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_kapa
+			group				none
+			text 				"5 - Ka'Pa the Hutt's Palace"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "kapas_palace"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_katraasii
+			group				none
+			text 				"6 - Katraasii Space Port"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "katraasii_a"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_katraasiib
+			group				none
+			text 				"7 - Katraasii Space Port, Part B"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "katraasii_b"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_takara
+			group				none
+			text 				"8 - Takara's Stronghold"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "takaras_stronghold"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_escortship
+			group				none
+			text 				"9 - New Republic Escort Ship"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "escort_ship"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_shipyards
+			group				none
+			text 				"10 - Oriting Ship Yards"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "ship_yards"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_kaerobanibase
+			group				none
+			text 				"11 - Kaerobani's Base"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "kaerobanis_base"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_dromundkaas
+			group				none
+			text 				"12 - Dromund Kaas Swamp"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "dromund_kaas"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_sithtemple
+			group				none
+			text 				"13 - Sith Temple"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "sith_temple"
+      }
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				mapname_catacombs
+			group				none
+			text 				"14 - Sith Temple Catacombs"
+			rect 				328 90 128 32
+			font				4
+			textstyle 			3
+			textscale 			1.2
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			0
+			textaligny	 		6
+			forecolor			1 1 1 1
+			visible 			1
+			
+      cvarTest      "mapname"
+			showCvar
+      {
+          "temple_catacombs"
+      }
+			decoration
+		}
+		
+		// Briefing text
+		itemDef
+		{
+			name				briefingtext
+			group				none
+			type				ITEM_TYPE_TEXTSCROLL			
+			rect				325 135 300 400
+			cvar				ui_missionbriefing
+			font				4
+			forecolor			.803 .090 .882 .85
+			textscale			1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			0
+			textaligny			6
+			textstyle       3
+			lineHeight			18
+			visible				1
+			autowrapped
+		}	
+	}	
+}

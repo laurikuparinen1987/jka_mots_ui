@@ -1,0 +1,136 @@
+//
+// OBJECTIVES MENU FOR MOTS TC
+//
+
+{
+	menuDef 
+	{
+		name					"datapadMissionMenu"
+		fullScreen				1							
+		rect					0 0 640 480						
+		visible					1							
+		focusColor				1 1 1 1
+		descX					320
+		descY					444
+		descScale				1
+		descColor				1 1 1 1
+		descAlignment				ITEM_ALIGN_CENTER		
+		onESC 
+		{ 
+				play			"sound/interface/esc.wav" 					
+				uiScript		closedatapad					
+		}
+
+//
+// BACKGROUND
+//
+
+		itemDef 
+		{
+			name				background
+			group				none
+			rect				0 0 640 480
+			style				WINDOW_STYLE_SHADER
+			background			"gfx/menus/datapad"	
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+		
+		itemDef
+		{
+			name				briefingtext
+			group				none
+			type				ITEM_TYPE_TEXTSCROLL
+			rect				100 140 330 370  // Seems to be hardcoded so you can type anything here - it doesn't matter anyway
+			cvar				ui_missionbriefing
+			font				3
+			forecolor			.170 .810 .210 1          // green
+			textscale			0.8
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			6
+			lineHeight			18
+			visible				1
+//			autowrapped
+      decoration
+		}
+
+		itemDef 
+		{
+			name				mission2
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_OWNERDRAW
+			rect				50 40 0 0 				//This is set in the code
+			textscale			.4
+			forecolor			.170 .810 .210 1          // green
+			visible				1
+			ownerdraw			203					// UI_DATAPAD_MISSION
+		}
+
+/* 
+    // Number of secrets found - NOT WORKING!
+    itemDef
+		{
+			name				secretsfound
+			group				stats
+			rect				0 390 640 18
+			type				ITEM_TYPE_EDITFIELD
+			text				"Secrets Found:"
+			cvar				"ui_stats_secretsfound"
+			font				2
+			forecolor			.5 .184 .10 .1 
+			textscale			0.8
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			300
+			textaligny			-1
+			textstyle     3
+			visible				1
+			decoration
+		}
+*/
+
+//
+// CLOSE DATAPAD-BUTTON 
+//
+		
+    itemDef 
+		{
+			name				close_datapad
+			type				ITEM_TYPE_BUTTON
+			rect				576 376 64 64    
+			forecolor			1 1 1 1
+			visible				1
+			mouseEnter 
+			{ 
+				show		  close_datapad_glow
+				hide			close_datapad
+			}
+		}
+		
+    itemDef 
+		{
+			name				close_datapad_glow
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_FILLED
+			background			"gfx/menus/datapad_glow"	
+			rect				574 373 66 64    
+			backcolor			1 1 1 1
+			visible				0
+			desctext    "Close Datapad" 
+      
+      mouseExit 
+			{ 
+				hide			close_datapad_glow
+				show      close_datapad
+			}
+      
+      action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		closedatapad			
+			}
+		}
+	}
+}

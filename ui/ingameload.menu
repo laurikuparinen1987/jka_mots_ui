@@ -1,0 +1,285 @@
+//
+// MOTS TC INGAME LOAD GAME MENU - CALLED FROM INGAME MAIN MENU
+//
+
+{
+	menuDef 
+	{
+		// ***IMPORTANT*** This name can not change, code looks for it.
+		// If it must change, change it in UI_AdjustSaveGameListBox() also
+		//
+		name					"ingameloadMenu"
+		visible					0
+		fullScreen				1					
+		rect					0 0 640 480				
+		focusColor				1 1 1 1					
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER		
+		disablecolor				.5 .5 .5 1
+
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 
+			close				all
+			open				ingamemainMenu
+		}
+		onOpen
+		{
+			uiScript			ReadSaveDirectory ;
+		}
+
+
+//
+// BACKGROUND
+//	
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_setup"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// CANCEL-BUTTON
+//
+
+		itemDef 
+		{
+			name				backbutton
+			group				back
+			text				"Cancel"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				55 444 130 24  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 
+				close			all ; 
+				open			ingameMainMenu
+			}
+		}		
+		
+//
+// LOAD GAME MENU SPECIFIC BUTTONS
+//
+
+		itemDef 
+		{
+			name				lgtitle
+			group				none			
+			rect				75 30 512 64
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/load_game"
+		}	
+
+		/*
+		itemDef 
+		{
+			name 				lg_title
+			group				none
+			text 				"Load Game"
+			rect 				275 30 640 80
+			font				4
+			textstyle 			1
+			textscale 			3.0
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		*/
+
+		itemDef 
+		{
+			// ***IMPORTANT*** This name can not change, code looks for it.
+			// If it must change, change it in UI_AdjustSaveGameListBox() also
+			//
+			name				loadgamelist
+			group				loadscreen
+			rect				40 200 360 190
+			type				ITEM_TYPE_LISTBOX
+			style				WINDOW_STYLE_FILLED
+			elementwidth			120
+			elementheight			16
+			font				2
+			textaligny			8
+			textscale			0.7
+			border				1
+			bordersize			1
+			bordercolor		.590 .278 .560 .5
+			forecolor			1 1 1 .9
+			
+//			forecolor			1 .682 0 1
+			backcolor			.590 .278 .560 .10
+			outlinecolor			.5 .5 .5 .5
+			elementtype			LISTBOX_TEXT
+			feeder				FEEDER_SAVEGAMES
+			notselectable
+			visible				1
+			columns				2 	2 55 150   155 0 200		//#of col., x loc. of 1st column, 2 number doesn't seem to do anything, third is width of column
+			mouseEnter 
+			{ 
+				setitemcolor	loadgamelist bordercolor .590 .278 .560 .20
+			} 
+			mouseExit 
+			{ 
+				setitemcolor	loadgamelist bordercolor .590 .278 .560 .20
+			} 
+			doubleclick
+			{
+				play			sound/interface/button1.wav
+				uiScript		loadgame
+			}
+			action 
+			{
+				play			sound/interface/sub_select 
+			}
+		}
+
+		itemDef 
+		{
+			name				loadgamepic
+			group				loadscreen
+			style				WINDOW_STYLE_EMPTY	
+			ownerdraw			236					//UI_ALLMAPS_SELECTION
+			font				2
+			textscale			.8
+			forecolor			.549 .854 1 1
+			rect				435 200 180 135
+			border				1
+			bordercolor			0 0 .8 1
+			visible				1 
+  	    		decoration 
+		}
+
+//
+// LOAD GAME-BUTTON
+//
+
+		itemDef 
+		{
+			name				loadgameaction
+			group				actionbutton
+			text				"Load Game"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				440 360 190 20
+			font				4
+			textscale			1.5
+			textalignx			175
+			textaligny			1
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			3
+			forecolor			.490 .278 .560 1
+			visible				1
+			cvarTest			ui_SelectionOK
+			enableCvar			{ "1" }
+
+			action 
+			{ 
+				play			sound/interface/button1.wav ;
+				uiScript		loadgame
+			}
+		}
+
+//
+// DELETE GAME-BUTTON
+//
+
+		itemDef 
+		{
+			name				deletegamebutton
+			group				actionbutton
+			text				"Delete Game"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				440 385 175 25 
+			font				4
+			textscale			1.5
+			textalignx			175
+			textaligny			1
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			3
+			forecolor			.490 .278 .560 1
+			visible				1
+			cvarTest			ui_SelectionOK
+			enableCvar			{ "1" }
+
+			action
+			{ 
+				play			sound/interface/button1.wav ;
+				uiScript		deletegame
+			}
+		}
+
+		itemDef 
+		{
+			name				resumeautobutton
+			group				actionbutton
+			text				"Load Checkpoint"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				440 410 175 25 
+			font				4
+			textscale			1.5
+			textalignx			175
+			textaligny			1
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			3
+			forecolor			.490 .278 .560 1
+			visible				1
+			cvarTest			ui_ResumeOK
+			enableCvar			{ "1" }
+
+			action
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				uiScript		loadAuto
+			}
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

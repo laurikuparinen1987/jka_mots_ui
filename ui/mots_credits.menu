@@ -1,0 +1,506 @@
+//
+// MOTS TC CREDITS MENU - CREDITS TAKEN FROM MOD DATABASE
+//
+
+{			   
+	menuDef 
+	{
+		name					"mots_creditsMenu"
+		fullScreen				1		
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					426
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER							
+		// This seems to be causing problems...
+    /*
+    onESC 
+		{ 
+			play				"sound/interface/menuroam.wav" ; 
+			open   			main2Menu ; 
+		}
+		*/
+
+//
+// BACKGROUND
+//
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_main"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// CREDITS TITLE
+//
+
+		itemDef 
+		{
+			name 				dev_team_title
+			group				none
+			text 				"Development Team"
+			rect 				270 150 640 20
+			font				2
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_1
+			group				credits
+			text 				"exonimus:"
+			rect 				80 200 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_1
+			group				credits
+			text 				"Co-Leader, Mapping, Texturing, Skinning"
+			rect 				180 200 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_2
+			group				credits
+			text 				"hhunter6:"
+			rect 				80 220 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_2
+			group				credits
+			text 				"Co-Leader, Mapping, Texturing"
+			rect 				180 220 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_3
+			group				credits
+			text 				"Xu'an:"
+			rect 				80 240 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_3
+			group				credits
+			text 				"Modeling, Skinning"
+			rect 				180 240 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_4
+			group				credits
+			text 				"Last Wish:"
+			rect 				80 260 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_4
+			group				credits
+			text 				"Modeling"
+			rect 				180 260 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_5
+			group				credits
+			text 				"Late:"
+			rect 				80 280 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_5
+			group				credits
+			text 				"UI Coding, Texturing"
+			rect 				180 280 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_6
+			group				credits
+			text 				"Darth Phae:"
+			rect 				80 300 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_6
+			group				credits
+			text 				"Skinning, Texturing"
+			rect 				180 300 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_7
+			group				credits
+			text 				"byrdface:"
+			rect 				80 320 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_7
+			group				credits
+			text 				"Skinning"
+			rect 				180 320 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_8
+			group				credits
+			text 				"Darth Ayreon:"
+			rect 				80 340 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_8
+			group				credits
+			text 				"Skinning"
+			rect 				180 340 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev1_9
+			group				credits
+			text 				"Darkness:"
+			rect 				80 360 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_9
+			group				credits
+			text 				"Website, Mapping"
+			rect 				180 360 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev1_10
+			group				credits
+			text 				"KungFuPanda:"
+			rect 				80 380 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+		itemDef 
+		{
+			name 				dev2_10
+			group				credits
+			text 				"Mapping"
+			rect 				180 380 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		
+		itemDef 
+		{
+			name 				dev1_11
+			group				credits
+			text 				"Forceboat:"
+			rect 				80 400 64 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			1 1 1 1
+			visible 			1
+			decoration
+		}
+
+    itemDef 
+		{
+			name 				dev2_11
+			group				credits
+			text 				"Sound work"
+			rect 				180 400 256 32
+			font				4
+			textstyle 			1
+			textscale 			1
+			textalign 			ITEM_ALIGN_LEFT
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+
+//
+// CLOSE CREDITS MENU
+//
+
+		itemDef 
+		{
+			name				close
+			group				none
+			text				"Close"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				55 444 130 24
+			font				4
+			textscale			1.5
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			.590 .278 .560 1
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				close			mots_creditsMenu ; 
+				open			main2Menu ;
+			}	  	  
+		}
+
+//
+// NEXT PAGE
+//
+
+		itemDef 
+		{
+			name				next
+			group				none
+			text				"Next"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				400 444 130 24
+			font				4
+			textscale			1.5
+			textalignx			65
+			textaligny			-1
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			forecolor			.590 .278 .560 1
+			visible				1
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				close			mots_creditsMenu ; 
+				open			mots_creditsMenu2 ;
+			}	  	  
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+

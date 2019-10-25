@@ -1,0 +1,47 @@
+// menu defs
+// 
+{
+	loadMenu { "ui/ingame.menu"						}
+	loadMenu { "ui/ingamesave.menu"						}
+	loadMenu { "ui/ingameload.menu"						}
+	loadMenu { "ui/ingamecontrols.menu"					}
+	loadMenu { "ui/ingamesetup.menu"					}
+	loadMenu { "ui/ingamequit.menu"						}
+	loadMenu { "ui/ingameMissionSelect.menu"				}
+	loadMenu { "ui/ingameGotoTier.menu"					}
+	loadMenu { "ui/ingameForceSelect.menu"					}
+	loadMenu { "ui/ingameWpnSelect.menu"					}
+	loadMenu { "ui/ingameForceStatus.menu"					}
+	loadMenu { "ui/ingameForceHelp.menu"					}
+	loadMenu { "ui/ingameWpnSelectHelp.menu"				}
+	loadMenu { "ui/igmsetup.menu"						}
+
+	loadMenu { "ui/datapadforcepowers.menu"					}
+	loadMenu { "ui/datapadmission.menu"					}
+	loadMenu { "ui/datapadweapons.menu"					}
+	loadMenu { "ui/datapadmoves.menu"					}
+
+	loadMenu { "ui/error.menu" }
+	loadMenu { "ui/ingamevid_warning.menu"					}
+	loadMenu { "ui/videodriver.menu"					}
+	loadMenu { "ui/saber.menu"						}
+	loadMenu { "ui/saberstyle.menu"						}
+
+	loadMenu { "ui/missionfailed.menu"					}
+	loadMenu { "ui/loadscreen.menu"						}
+	
+  loadMenu { "ui/altyr5c.menu"						}
+  loadMenu { "ui/asteroid_crustc.menu"						}
+  loadMenu { "ui/asteroid_corec.menu"						}
+  loadMenu { "ui/asteroid_destructc.menu"						}
+  loadMenu { "ui/kapas_palacec.menu"						}
+  loadMenu { "ui/katrassii_ac.menu"						}
+  loadMenu { "ui/katrassii_bc.menu"						}
+  loadMenu { "ui/takaras_strongholdc.menu"						}
+  loadMenu { "ui/escort_shipc.menu"						}
+  loadMenu { "ui/ship_yardsc.menu"						}
+  loadMenu { "ui/kaerobanis_basec.menu"						}
+  loadMenu { "ui/dromund_kaasc.menu"						}
+  loadMenu { "ui/sith_templec.menu"						}
+
+}

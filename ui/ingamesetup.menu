@@ -1,0 +1,2381 @@
+//
+// SETUP MENU FOR MOTS TC
+//
+
+{
+	menuDef 
+	{
+		name					"ingamesetupMenu"
+		fullScreen				1						
+		rect					0 0 640 480					
+		visible					1						
+		focusColor				1 1 1 1					
+		descX					320
+		descY					426
+		descScale				1
+		descColor				.490 .278 .560 1
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onOpen 
+		{
+			uiScript			getvideosetup ;			
+			hide				applyChanges ;
+			hide				video2 ;
+			hide				vidrestart	;
+			hide				sound	;
+			hide				options ;
+			hide				mods	;
+			hide				defaults ;
+			show				video ;
+			show				setup_background ;
+			hide				highlights ;
+		  setitemcolor			video1menubutton forecolor 1 1 1 1 ;
+			setitemcolor			video2menubutton forecolor .490 .278 .560 1 ;
+			setitemcolor			soundmenubutton forecolor .490 .278 .560 1;
+			setitemcolor			gameoptionmenubutton forecolor .490 .278 .560 1;
+			setitemcolor			modsmenubutton forecolor .490 .278 .560 1;
+			setitemcolor			gamedefaultsmenubutton forecolor .490 .278 .560 1;
+		}
+			
+		onESC 
+		{ 
+			play				"sound/interface/esc.wav" 		
+
+			defer				VideoSetup	videowarningMenu ;
+
+			close				all ;
+			open				igmsetupMenu
+		}
+
+	
+	
+//
+// BACKGROUND
+//
+	
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/mots_setup"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+//
+// MAIN SETUP MENU TITLE
+//
+
+		itemDef 
+		{
+			name				setuptitle
+			group				none			
+			rect				180 30 256 64
+			style				WINDOW_STYLE_FILLED
+			backcolor			1 1 1 1
+			visible 			1
+			background			"gfx/menus/setup"
+		}
+
+		/*
+		itemDef 
+		{
+			name 				msmtitle
+			group				none
+			text 				"Setup"
+			rect 				275 30 640 80
+			font				4
+			textstyle 			1
+			textscale 			3.0
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+		*/
+
+
+//
+// CONTROLS BUTTON
+//
+
+		itemDef 
+		{
+			name				controlsbutton
+			group				none
+			rect				150 125 200 32
+			text				"Controls"
+			font				4
+			textscale			1.5
+			textaligny			0
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			1
+			textalignx			65
+			forecolor			.470 .470 .470 1
+			visible				1	  	  
+		}
+
+//
+// SETUP BUTTON
+//
+
+		itemDef 
+		{
+			name				setupbutton
+			group				sbut
+			text				"Setup"
+			rect				385 125 200 32
+			textaligny			0
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			1
+			textalignx			65
+			forecolor			.470 .479 .470 1
+			visible				1
+		}
+
+//
+// OK BUTTON
+//
+
+		itemDef 
+		{
+			name				okbutton
+			group				ok
+			text				"Confirm"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				515 445 200 32 
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 		
+				close			all ; 
+				open			igmsetupMenu 
+			}
+		}
+
+		
+//
+// SETUP TITLE
+//
+
+/*
+itemDef 
+		{
+			name 				setupstitle
+			group				none
+			text 				"Setup"
+			rect 				300 145 640 80
+			font				4
+			textstyle 			1
+			textscale 			2.5
+			textalign 			ITEM_ALIGN_CENTER
+			textalignx 			50
+			textaligny	 		0
+			forecolor			.490 .278 .560 1
+			visible 			1
+			decoration
+		}
+*/
+
+//
+// SECOND ROW MENU BUTTONS
+//
+
+		itemDef 
+		{
+			name				video1menubutton
+			group				none
+			text				@MENUS_VIDEO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 185 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textstyle			1
+			textalign			ITEM_ALIGN_RIGHT
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			sound/interface/sub_select 
+
+				defer			VideoSetup	videowarningMenu ;
+
+				uiScript		getvideosetup ;		// Get video settings
+
+				show			setup_background ;
+				show 			video ;
+				hide			applyChanges ;
+				hide			video2 ;
+				hide			vidrestart	;
+				hide			sound	;
+				hide			options ;
+				hide			mods	;
+				hide			defaults ;
+				setfocus		graphics ;
+				setitemcolor		video1menubutton forecolor 1 1 1 1 ;
+				setitemcolor		video2menubutton forecolor .490 .278 .560 1 ;
+				setitemcolor		soundmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gameoptionmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		modsmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gamedefaultsmenubutton forecolor .490 .278 .560 1;
+			}
+		}
+
+		itemDef 
+		{
+			name				video2menubutton
+			group				none
+			text				@MENUS_MORE_VIDEO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 209 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			sound/interface/sub_select 
+
+				defer			VideoSetup	videowarningMenu ;
+
+				show			setup_background ;
+				hide 			video ;
+				hide			applyChanges ;
+				show			video2 ;
+				hide			vidrestart	;
+				hide			sound	;
+				hide			options ;
+				hide			mods	;
+				hide			defaults ;
+				setitemcolor		video1menubutton forecolor .490 .278 .560 1;
+				setitemcolor		video2menubutton forecolor 1 1 1 1 ;
+				setitemcolor		soundmenubutton forecolor .490 .278 .560 1 ;
+				setitemcolor		gameoptionmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		modsmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gamedefaultsmenubutton forecolor .490 .278 .560 1;
+			}
+		}
+
+		itemDef 
+		{
+			name				soundmenubutton
+			group				none
+			text				@MENUS_SOUND
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 233 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			sound/interface/sub_select 
+
+				defer			VideoSetup	videowarningMenu ;
+
+				show			setup_background ;
+				hide 			video ;
+				hide			applyChanges ;
+				hide			video2 ;
+				hide			vidrestart	;
+				show			sound	;
+				hide			options ;
+				hide			mods	;
+				hide			defaults ;
+				setitemcolor		video1menubutton forecolor .490 .278 .560 1;
+				setitemcolor		video2menubutton forecolor .490 .278 .560 1;
+				setitemcolor		soundmenubutton forecolor 1 1 1 1 ;
+				setitemcolor		gameoptionmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		modsmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gamedefaultsmenubutton forecolor .490 .278 .560 1;
+			}
+		}
+
+		// gameoptions  button
+		itemDef 
+		{
+			name				gameoptionmenubutton
+			group				none
+			text				@MENUS_GAME_OPTIONS
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 257 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				defer			VideoSetup	videowarningMenu ;
+
+				play			sound/interface/sub_select 
+				show			setup_background ;
+				hide 			video ;
+				hide			applyChanges ;
+				hide			video2 ;
+				hide			vidrestart	;
+				hide			sound	;
+				show			options ;
+				hide			mods	;
+				hide			defaults ;
+				setitemcolor		video1menubutton forecolor .490 .278 .560 1;
+				setitemcolor		video2menubutton forecolor .490 .278 .560 1;
+				setitemcolor		soundmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gameoptionmenubutton forecolor 1 1 1 1 ;
+				setitemcolor		modsmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gamedefaultsmenubutton forecolor .490 .278 .560 1;
+			}
+		}
+
+		// mods  button
+		itemDef 
+		{
+			name				modsmenubutton
+			group				none
+			text				@MENUS_MODS
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 281 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			sound/interface/sub_select 
+
+				defer			VideoSetup	videowarningMenu ;
+				uiScript		loadMods ;
+
+				show			setup_background ;
+				hide 			video ;
+				hide			applyChanges ;
+				hide			video2 ;
+				hide			vidrestart	;
+				hide			sound	;
+				hide			options ;
+				show			mods	;
+				hide			defaults ;
+				setitemcolor		video1menubutton forecolor .490 .278 .560 1;
+				setitemcolor		video2menubutton forecolor .490 .278 .560 1;
+				setitemcolor		soundmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gameoptionmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		modsmenubutton forecolor 1 1 1 1 ;
+				setitemcolor		gamedefaultsmenubutton forecolor .490 .278 .560 1;
+			}
+		}
+
+		// gamedefaults button
+		itemDef 
+		{
+			name				gamedefaultsmenubutton
+			group				none
+			text				@MENUS_DEFAULTS
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				80 305 170 24
+			font				4
+			textscale			0.9
+			textalignx			170
+			textaligny			2
+			textalign			ITEM_ALIGN_RIGHT
+			textstyle			1
+			forecolor			.490 .278 .560 1
+			visible				1
+	  	  
+			action 
+			{ 
+				play			sound/interface/sub_select 
+
+				defer			VideoSetup	videowarningMenu ;
+
+				show			setup_background ;
+				hide 			video ;
+				hide			applyChanges ;
+				hide			video2 ;
+				hide			vidrestart	;
+				hide			sound	;
+				hide			options ;
+				hide			mods	;
+				show			defaults ;
+				setitemcolor		video1menubutton forecolor .490 .278 .560 1;
+				setitemcolor		video2menubutton forecolor .490 .278 .560 1;
+				setitemcolor		soundmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gameoptionmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		modsmenubutton forecolor .490 .278 .560 1;
+				setitemcolor		gamedefaultsmenubutton forecolor 1 1 1 1 ;
+			}
+		}
+
+		itemDef 
+		{
+			name				setup_background
+			group				none
+			style				WINDOW_STYLE_FILLED
+			rect				260 185 340 225	
+			backcolor	    .590 .278 .560 .2
+			forecolor			1 1 1 1
+			border				1
+			bordercolor	   .590 .278 .560 .5
+			visible				0
+			decoration
+		}
+
+///----------------------------------------------------------------------------------------------
+//	VIDEO 1 MENU BUTTONS
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+		  name 				graphics				
+			group 				video
+			text				@MENUS_VIDEO_QUALITY
+	   	type 				ITEM_TYPE_MULTI	
+			rect				260 188 340 14
+	   	textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			style				WINDOW_STYLE_FILLED
+			forecolor			.615 .615 .956 1
+			descText			@MENUS_SELECT_PRESET_GRAPHIC
+
+	   	visible 			0
+
+			cvar 				"ui_r_glCustom"
+			cvarFloatList 
+			{ 
+				@MENUS_HIGH_QUALITY	0 
+				@MENUS_NORMAL		1 
+				@MENUS_FAST		2 
+				@MENUS_FASTEST		3 
+				@MENUS_CUSTOM		4 
+			}
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript 		update "ui_r_glCustom" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+    
+    // Select Aspect Ratio
+    itemDef 
+		{	
+			name				aspect_ratio
+			group				video
+      type				ITEM_TYPE_MULTI
+			text				"Aspect Ratio:"
+			cvarFloatList			
+      {  
+          "4:3" 0 
+          "6:9" 1
+      }
+			cvar				"r_wide"
+
+			rect				260 202 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			descText			"Letterbox or Widescreen mode"
+
+			visible				0
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				// Having two apply buttons can mix things quite a bit so let's hide this
+        // when we change aspect ratio.
+        hide		applyWideChanges
+        hide    applyChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				video_mode
+			group				video
+      type				ITEM_TYPE_MULTI
+			text				@MENUS_VIDEO_MODE
+			cvarFloatList			{  @MENUS_640_X_480 3 @MENUS_800_X_600 4  @MENUS_1024_X_768 6 @MENUS_1152_X_864 7  @MENUS_1280_X_1024 8  @MENUS_1600_X_1200 9  @MENUS_2048_X_1536 10 @MENUS_2400_X_600 12 }
+			cvar				"ui_r_mode"
+
+			rect				260 216 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			descText			@MENUS_CHANGE_THE_DISPLAY_RESOLUTION
+
+			visible				0
+			
+      cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+
+    // Widescreen resolutions
+    itemDef 
+		{	
+			name				video_mode_wide
+			group				video
+      type				ITEM_TYPE_MULTI
+			text				@MENUS_VIDEO_MODE
+			cvarFloatList			
+      {  
+            "852 X 480" 852 
+            "1280 X 720" 1280  
+            "1440 X 900" 1440
+            "1600 X 900" 1600
+      }
+			cvar				"r_customwidth"
+			//cvar				"r_mode"     // Probably not the right cvar for this but what the heck...
+
+			rect				260 216 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			descText			@MENUS_CHANGE_THE_DISPLAY_RESOLUTION
+
+			visible				0
+			
+      cvarTest      "r_wide"  
+      showCvar
+      {
+          "1"  
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				//setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+    // Apply widescreen settings buttons
+    itemDef 
+		{
+			name				applyWideChanges
+			group				none
+			text				"APPLY SETTINGS"
+			descText    "Apply settings and use 852 X 480 resolution"
+      type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 14
+			textaligny			0
+			font 				4
+			textscale 			1
+			textalignx			170
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 0 0 1
+			backcolor			0 0 1 0
+			visible				0
+ 	    
+ 	    cvarTest      "r_customwidth"
+ 	    showCvar
+ 	    {
+ 	        "852"
+      }
+ 	  
+ 	    mouseEnter 
+			{ 
+			  hide			applyChanges
+			}
+ 	  
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+        exec 		  "exec 852_480.cfg"
+			}
+		}
+    itemDef 
+		{
+			name				applyWideChanges
+			group				none
+			text				"APPLY SETTINGS"
+			descText     "Apply settings and use 1280 X 720 resolution"
+      type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 14
+			textaligny			0
+			font 				4
+			textscale 			1
+			textalignx			170
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 0 0 1
+			backcolor			0 0 1 0
+			visible				0
+ 	    
+ 	    cvarTest      "r_customwidth"
+ 	    showCvar
+ 	    {
+ 	        "1280"
+      }
+ 	  
+ 	    mouseEnter 
+			{ 
+			  hide			applyChanges
+			}
+ 	  
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+        exec 		  "exec 1280_720.cfg"
+			}
+		}
+    itemDef 
+		{
+			name				applyWideChanges
+			group				none
+			text				"APPLY SETTINGS"
+			descText    "Apply settings and use 1440 x 900 resolution"
+      type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 14
+			textaligny			0
+			font 				4
+			textscale 			1
+			textalignx			170
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 0 0 1
+			backcolor			0 0 1 0
+			visible				0
+ 	    
+ 	    cvarTest      "r_customwidth"
+ 	    showCvar
+ 	    {
+ 	        "1440"
+      }
+ 	    mouseEnter 
+			{ 
+			  hide			applyChanges
+			}
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+        exec 		  "exec 1440_900.cfg"
+			}
+		}
+		itemDef 
+		{
+			name				applyWideChanges
+			group				none
+			text				"APPLY SETTINGS"
+			descText    "Apply settings and use 1600 X 900 resolution"
+      type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 14
+			textaligny			0
+			font 				4
+			textscale 			1
+			textalignx			170
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 0 0 1
+			backcolor			0 0 1 0
+			visible				0
+ 	    
+ 	    cvarTest      "r_customwidth"
+ 	    showCvar
+ 	    {
+ 	        "1600"
+      }
+ 	  
+ 	    mouseEnter 
+			{ 
+			  hide			applyChanges
+			}
+ 	  
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+        exec 		  "exec 1600_900.cfg"
+			}
+		}
+		
+		// NOW HERE WE HAVE TWO VERSION OF EACH BUTTON: FOR WIDESCREEN USERS AND LETTERBOX GUYS
+		itemDef 
+		{	
+			name				color_depth
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_COLOR_DEPTH
+			rect				260 230 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+
+			cvarFloatList			{  @MENUS_DEFAULT 0 @MENUS_16_BIT 16 @MENUS_32_BIT 32 }
+			descText			@MENUS_CHANGE_THE_NUMBER_OF
+			cvar				"ui_r_colorbits"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_colorbits" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				color_depth_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_COLOR_DEPTH
+			rect				260 230 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+
+			cvarFloatList			{  @MENUS_DEFAULT 0 @MENUS_16_BIT 16 @MENUS_32_BIT 32 }
+			descText			@MENUS_CHANGE_THE_NUMBER_OF
+			cvar				"ui_r_colorbits"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_colorbits" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+		
+		itemDef 
+		{	
+			name				fullscreen
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_FULL_SCREEN
+			rect				260 244 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_TOGGLE_BETWEEN_FULL_SCREEN
+			cvar				"ui_r_fullscreen"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				fullscreen_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_FULL_SCREEN
+			rect				260 244 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_TOGGLE_BETWEEN_FULL_SCREEN
+			cvar				"ui_r_fullscreen"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				geometric_detail
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_GEOMETRIC_DETAIL
+			rect				260 258 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_LOW 2 @MENUS_MEDIUM 1 @MENUS_HIGH 0 }
+			descText			@MENUS_ADJUST_THE_NUMBER_OF
+			cvar				"ui_r_lodbias"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_lodbias" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				geometric_detail_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_GEOMETRIC_DETAIL
+			rect				260 258 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_LOW 2 @MENUS_MEDIUM 1 @MENUS_HIGH 0 }
+			descText			@MENUS_ADJUST_THE_NUMBER_OF
+			cvar				"ui_r_lodbias"
+
+			visible				0
+			
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				uiScript update 	"ui_r_lodbias" ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				texture_detail
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_DETAIL
+			rect				260 272 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_LOW 3 @MENUS_MEDIUM 2 @MENUS_HIGH 1 @MENUS_VERY_HIGH 0 }
+			descText			@MENUS_SELECT_THE_RESOLUTION
+			cvar				"ui_r_picmip"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+    itemDef 
+		{	
+			name				texture_detail_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_DETAIL
+			rect				260 272 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_LOW 3 @MENUS_MEDIUM 2 @MENUS_HIGH 1 @MENUS_VERY_HIGH 0 }
+			descText			@MENUS_SELECT_THE_RESOLUTION
+			cvar				"ui_r_picmip"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				texture_quality
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_QUALITY
+			rect				260 286 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_DEFAULT 0 @MENUS_16_BIT 16 @MENUS_32_BIT 32 }
+			descText			@MENUS_SELECT_THE_NUMBER_OF
+			cvar				"ui_r_texturebits"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+      
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				texture_quality_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_QUALITY
+			rect				260 286 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_DEFAULT 0 @MENUS_16_BIT 16 @MENUS_32_BIT 32 }
+			descText			@MENUS_SELECT_THE_NUMBER_OF
+			cvar				"ui_r_texturebits"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+      
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				texture_filter
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_FILTER
+			rect				260 300 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarStrList			{  @MENUS_BILINEAR , "GL_LINEAR_MIPMAP_NEAREST" , @MENUS_TRILINEAR , "GL_LINEAR_MIPMAP_LINEAR" }
+			descText			@MENUS_ADJUST_HOW_WELL_THE_TEXTURES
+			cvar				"ui_r_texturemode"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				texture_filter_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_TEXTURE_FILTER
+			rect				260 300 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarStrList			{  @MENUS_BILINEAR , "GL_LINEAR_MIPMAP_NEAREST" , @MENUS_TRILINEAR , "GL_LINEAR_MIPMAP_LINEAR" }
+			descText			@MENUS_ADJUST_HOW_WELL_THE_TEXTURES
+			cvar				"ui_r_texturemode"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{	
+			name				simple_shaders
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_DETAILED_SHADERS
+			rect				260 314 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_HIDE_OR_UNHIDE_TEXTURES
+			cvar				"ui_r_detailtextures"
+
+			visible				0
+			
+      cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				simple_shaders_wide
+			group				video
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_DETAILED_SHADERS
+			rect				260 314 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_HIDE_OR_UNHIDE_TEXTURES
+			cvar				"ui_r_detailtextures"
+
+			visible				0
+			
+      cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+				uiScript		glCustom ;
+				setcvar			ui_r_modified	1 ;
+				show			applyWideChanges
+			}
+		}
+
+		itemDef 
+		{			
+			name				video_sync
+			group				video
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_VIDEO_SYNC
+			cvar				"r_swapInterval"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 328 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_VIDEO_SYNC_DESC
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+
+			} 
+		}
+		itemDef 
+		{			
+			name				video_sync_wide
+			group				video
+      type				ITEM_TYPE_MULTI
+			text				@MENUS_VIDEO_SYNC
+			cvar				"r_swapInterval"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 328 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_VIDEO_SYNC_DESC
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+			} 
+		}
+
+		itemDef 
+		{	
+			name				compress_textures
+			group				video_obsolete
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_COMPRESSED_TEXTURES
+			rect				260 328 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_TAKE_ADVANTAGE_OF_3D
+			cvar				"ui_r_ext_compress_textures"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "0"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				uiScript		glCustom
+				setcvar			ui_r_modified	1
+				show			applyChanges
+			}
+		}
+		itemDef 
+		{	
+			name				compress_textures_wide
+			group				video_obsolete
+			type				ITEM_TYPE_MULTI
+			text				@MENUS_COMPRESSED_TEXTURES
+			rect				260 328 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			descText			@MENUS_TAKE_ADVANTAGE_OF_3D
+			cvar				"ui_r_ext_compress_textures"
+
+			visible				0
+
+			cvarTest      "r_wide"   
+      showCvar
+      {
+          "1"
+      }
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				uiScript		glCustom
+				setcvar			ui_r_modified	1
+				show			applyWideChanges
+			}
+		}
+
+    // Apply letterbox changes
+		itemDef 
+		{
+			name				applyChanges
+			group				none
+			text				@MENUS_APPLY_CHANGES
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 14
+			textaligny			0
+			font 				4
+			textscale 			1
+			textalignx			170
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 0 0 1
+			backcolor			0 0 1 0
+			visible				0
+ 	    mouseEnter
+ 	    {
+            hide			applyWideChanges
+      }
+    
+			action
+			{
+				play			"sound/interface/button1.wav" ; 
+				show			setup_background ;
+				show			vidrestart ;
+				setfocus 		vidrestart_no ;
+				hide			video ;
+				hide			video2 ;
+				hide 			applyChanges ;
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	VIDEO RESTART
+//----------------------------------------------------------------------------------------------
+		// Faint red box
+/*		itemDef 
+		{
+			name				vidrestart_background
+			group				vidrestart
+			style				WINDOW_STYLE_SHADER
+			rect				300 171 300 250	
+			background			"gfx/menus/menu_boxred"					// Frame
+			forecolor			1 1 1 0.5
+			visible			0
+			decoration
+		} */
+		itemDef 
+		{
+			name				vidrestart_background
+			group				vidrestart
+			style				WINDOW_STYLE_FILLED
+			rect				260 185 340 225	
+			backcolor			0 0 .6 .5
+			forecolor			1 1 1 1
+			border				1
+			bordercolor			0 0 .6 1
+			visible				0
+			decoration
+		}
+		
+
+		itemDef 
+		{
+			name				vidrestart_text1
+			group				vidrestart
+			text				@MENUS_THIS_WILL_APPLY_VIDEO
+			text2				@MENUS_AND_RETURN_TO_THE_MAIN
+			rect				305 230 290 20
+			textalign			ITEM_ALIGN_CENTER
+			text2aligny			18
+			textalignx			145
+			font				2
+			textscale			1        
+			forecolor			1 1 0 1
+			visible			0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				vidrestart_text2
+			group				vidrestart
+			text				@MENUS_VID_RESTART3
+			rect				305 300 290 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			145
+			font				2
+			textscale			1        
+			forecolor			1 1 0 1
+			visible			0
+		}
+
+
+
+		itemDef 
+		{
+			name			vidrestart_yes_button
+			group			none
+			style			WINDOW_STYLE_SHADER
+			rect			467 389 120 22
+			background		"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor		1 1 1 1
+			decoration
+			visible		0 
+		}
+
+		// YES button
+		itemDef 
+		{
+			name				vidrestart_yes
+			group				vidrestart
+			text				@MENUS_YES
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				467 386 120 32 
+			font				2
+			textscale			1        
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			0
+			descText			@MENUS_APPLY_CHANGES_AND_THEN
+			forecolor			1 .682 0 1
+			visible			-1
+
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				setcvar   cg_fov 90 ;
+				close		all ; 
+				uiScript	updatevideosetup ;
+			}
+			mouseEnter 
+			{ 
+				show			vidrestart_yes_button
+			}
+			mouseExit 
+			{ 
+				hide			vidrestart_yes_button
+			}	  	  
+
+		}
+	
+		itemDef 
+		{
+			name			vidrestart_no_button
+			group			vidrestart
+			style			WINDOW_STYLE_SHADER
+			rect			305 389 120 22
+			background		"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor		1 1 1 1
+			decoration
+			visible		0
+		}
+
+		// CANCEL button
+		itemDef 
+		{
+			name				vidrestart_no
+			group				vidrestart
+			text				@MENUS_NO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				305 386 120 32 
+			font				2
+			textscale			1        
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			-1
+			descText			@MENUS_DO_NOT_APPLY_CHANGES
+			forecolor			1 .682 0 1
+			visible			0
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 					
+				setfocus		video1menubutton ;
+				show			setup_background ;
+				hide 			vidrestart ;
+				show			video ;
+				hide			video2 ;
+				show			applyChanges ;
+				hide			vidrestart_yes_button ;
+				hide			vidrestart_no_button ;
+			}
+			mouseEnter 
+			{ 
+				show			vidrestart_no_button 
+			}
+			mouseExit 
+			{ 
+				hide			vidrestart_no_button 
+			}	  	  
+
+		}
+
+//----------------------------------------------------------------------------------------------
+//	VIDEO 2
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				gamma_text
+			group				video2
+			style				WINDOW_STYLE_SHADER
+			rect				290 198 280 36
+			background			"gfx/menus/greyscale"					// greyscale
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+			
+		}
+
+		itemDef 
+		{
+			name				bright_text
+			group				video2
+			text				@MENUS_ADJUST_BRIGHTNESS_SLIDER
+			text2				@MENUS_THE_NUMBER_6_CAN_BARELY
+			text2aligny			14
+			textalignx			170
+			textaligny			0
+			font 				4
+			textscale 			1
+			rect				260 234 340 20
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			.549 .854 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				brightness
+			group				video2
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_VIDEO_BRIGHTNESS
+			cvarfloat			"r_gamma" 1 .5 3
+			rect				260 267 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_ADJUST_THE_BRIGHTNESS
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+		}
+
+		itemDef 
+		{			
+			name				shadows
+			group				video2
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_SHADOWS
+			descText			@MENUS_SHADOWS_DESC
+			cvar				"cg_shadows"
+			cvarFloatList		
+			{  
+				@MENUS_NONE				0 
+				@MENUS_SHADOWS_SIMPLE		1 
+				@MENUS_SHADOWS_VOLUMETRIC	2
+				"Projected"		3
+			}
+			rect				260 287 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+			} 
+
+		}
+
+
+		itemDef 
+		{			
+			name				dynamic_light
+			group				video2
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DYNAMIC_LIGHTS
+			cvar				"r_dynamiclight"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 301 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_TURN_ON_MOVING
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+
+			} 
+		}
+
+		itemDef 
+		{			
+			name				dynamic_glow
+			group				video2
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DYNAMIC_GLOW
+			cvar				"r_dynamicglow"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 315 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_DYNAMIC_GLOW_DESC
+
+			action 
+			{
+				play			"sound/interface/button1.wav" ; 
+
+			} 
+		}
+
+		itemDef 
+		{			
+			name				light_flares
+			group				video2
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_LIGHT_FLARES
+			cvar				"r_flares"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 329 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_SHOW_HALOS
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+			} 
+		}
+
+		itemDef 
+		{			
+			name				wall_marks
+			group				video2
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_WALL_MARKS
+			cvar				"cg_marks"	
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 343 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_DISPLAY_SCORCH
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+			} 
+		}
+
+		itemDef 
+		{	
+			name				video_mode
+			group				video2
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_ANISOTROPIC_FILTERING
+			cvarTest			r_ext_texture_filter_anisotropic_avail
+			hideCvar			{ 0 }     
+			cvarfloat			"r_ext_texture_filter_anisotropic" 2 0 16
+			rect				260 359 340 14
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+
+			descText			@MENUS_TOGGLE_ADVANCED_TEXTURE
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+			} 
+		}
+
+		itemDef 
+		{	
+			name				advancedvideo
+			group				video2
+      			type				ITEM_TYPE_BUTTON
+			text				@MENUS_SHOW_DRIVER_INFO
+			rect				260 393 340 14
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			1
+			textalignx			170
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			1 .682 0 1
+			visible				0
+			descText			@MENUS_SHOW_ADVANCED_INFORMATION
+
+			action
+			{
+				play			"sound/interface/button1.wav"
+				setfocus		video2menubutton
+				hide			button_glow
+				open 			videodriverMenu
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	SOUND FIELDS
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				effects_volume
+			group				sound
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_EFFECTS_VOLUME
+			cvarfloat			"s_volume" 0 0 1
+			rect				260 188 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_ADJUST_VOLUME_FOR_SOUND
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+		}
+
+		itemDef 
+		{
+			name				music_volume
+			group				sound
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_MUSIC_VOLUME
+			cvarfloat			"s_musicvolume" 0 0 1
+			rect				260 216 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_ADJUST_VOLUME_FOR_MUSIC
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+		}
+
+		itemDef 
+		{
+			name				voice_volume
+			group				sound
+			type				ITEM_TYPE_SLIDER
+			text				@MENUS_VOICE_VOLUME
+			cvarfloat			"s_volumevoice" 0 0 1
+			rect				260 244 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_ADJUST_VOLUME_FOR_SPEECH
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+			}
+
+		}
+
+		itemDef 
+		{	
+			name				sound_quality
+			group				sound
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_SOUND_QUALITY
+			cvar				"s_khz"
+			cvarFloatList		{ @MENUS_LOW 11  @MENUS_HIGH 22 }
+			rect				260 272 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TRADE_CLARITY_OF_SOUND
+			cvarTest			"s_UseOpenAL"
+			hideCvar			{ 1 }
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				uiScript		update s_khz
+			}
+		}
+
+		itemDef 
+		{
+			name				eax
+			group				sound
+			type				ITEM_TYPE_MULTI
+			cvar				"s_UseOpenAL"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			text				@MENUS_EAX
+			rect				260 300 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_EAX_DESC
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		update s_khz
+			}
+		}
+
+		itemDef
+		{
+			name				eax_icon
+			group				sound
+			style				WINDOW_STYLE_SHADER
+			rect				366 316 128 64
+			background			"gfx/menus/eax"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+			cvarTest			"s_UseOpenAL"
+			hideCvar			{ 0 }
+		}
+
+//----------------------------------------------------------------------------------------------
+//	OPTION FIELDS
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{	
+			name				draw_crosshair
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DRAW_CROSSHAIR
+			cvar				"cg_drawcrosshair"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 188 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_SHOW_OR_HIDE
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+
+		itemDef 
+		{	
+			name				identifytarget
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_IDENTIFY_TARGET
+			cvar				"cg_crosshairIdentifyTarget"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 202 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_TOGGLE_TO_HAVE_THE_CROSSHAIR
+
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+		itemDef 
+		{	
+			name				force1st
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_1ST_PERSON_GUNS
+			cvar				"cg_gunAutoFirst"
+			cvarFloatList			{  @MENUS_OFF 0 @MENUS_ON 1 }
+			rect				260 244 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_WHEN_PUTTING_AWAY_SABER
+
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+		itemDef 
+		{	
+			name				footsteps
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_FOOTSTEPS
+			desctext			@MENUS_FOOTSTEPS_DESC
+			cvar				"cg_footsteps"
+			cvarFloatList		
+			{ 
+				@MENUS_OFF 			0  
+				@MENUS_SOUNDS	 		1 
+				@MENUS_SOUNDS_AND_EFFECTS	2
+				@MENUS_SOUNDS_EFFECTS_GRAPHICS	3
+			}
+			rect				260 258 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4					
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+		itemDef 
+		{	
+			name				dismemberment
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_DISMEMBERMENT
+			cvar				"g_dismemberment"
+			cvarFloatList		
+			{ 
+				@MENUS_OFF 	0
+				@MENUS_ON 		3
+			}
+			cvarTest			ui_iscensored
+			hideCvar			{ 1 }
+			rect				260 272 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+			descText			@MENUS_SELECT_WHAT_LIGHTSABER
+
+			action
+			{
+				play			"sound/interface/button1.wav"
+			}
+		}
+
+// Weapon Sway.  Yes, this is nutty.  Two cvars here, one removes weapon sway, the other adds it.
+		itemDef 
+		{	
+			name				weaponswayon
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_VIEW_SWAYING
+			descText			@MENUS_VIEW_SWAYING_DESC
+			cvar				"ui_disableWeaponSway"
+			cvarFloatList		
+			{ 
+				@MENUS_ON	 	0
+				@MENUS_OFF 	1
+			}
+			cvarTest			"ui_disableWeaponSway"
+			showCvar
+			{
+				"0"
+			}
+			rect				260 286 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible			0
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				exec			"exec noMotion.cfg" ;
+				show			weaponswayoff ;
+				setfocus		weaponswayoff
+			}
+		}
+
+		itemDef 
+		{	
+			name				weaponswayoff
+			group				options
+      			type				ITEM_TYPE_MULTI
+			text				@MENUS_VIEW_SWAYING
+			descText			@MENUS_VIEW_SWAYING_DESC
+			cvar				"ui_disableWeaponSway"
+			cvarFloatList		
+			{ 
+				@MENUS_ON	 	0
+				@MENUS_OFF 	1
+			}
+			cvarTest			"ui_disableWeaponSway"
+			hideCvar
+			{
+				"0"
+			}
+			rect				260 286 340 14
+	   		textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			visible				0
+
+			action 
+			{
+				play			"sound/interface/button1.wav"
+				exec			"exec restoreMotion.cfg" ;
+				show			weaponswayon ;
+				setfocus		weaponswayon
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//   MOD GAME MENU specific stuff
+//----------------------------------------------------------------------------------------------
+		itemDef 
+		{
+			name				serverinfo
+			group				mods
+			rect				270 196 320 176
+			type				ITEM_TYPE_LISTBOX
+			style				WINDOW_STYLE_FILLED
+			elementwidth			120
+			elementheight			16
+			font				2
+			textscale			1
+			border				1
+			bordersize			1
+			bordercolor			.5 .5 .5 .5
+			forecolor			.79 .64 .22 1			
+			backcolor			0 0 .5 .25
+			outlinecolor			.5 .5 .5 .5
+			elementtype			LISTBOX_TEXT
+			feeder				9
+			notselectable
+			visible				0
+			columns 			1	2 40 280
+		}
+
+		itemDef 
+		{
+			name				loadmod_button
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				310 384 240 24
+			background			"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				loadmod
+			group				mods
+			text				@MENUS_LOAD_MOD
+			descText			@MENUS_LOAD_CHOSEN_MOD
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				260 384 340 24
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			170
+			textaligny			-2
+			font 				2
+			textscale 			1
+			forecolor			1 .682 0 1
+			visible				0
+			action 
+			{ 
+				play			"sound/interface/button1.wav"
+				uiScript		RunMod ;
+			}
+		}
+
+		itemDef 
+		{
+			name				button_glow
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 0 0
+			background			"gfx/menus/menu_buttonback"
+			forecolor			1 1 1 1
+			visible				0
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	RESET DEFAULTS
+//----------------------------------------------------------------------------------------------
+		// Faint red box
+		itemDef 
+		{
+			name				vidrestart_background
+			group				defaults
+			style				WINDOW_STYLE_FILLED
+			rect				257 182 343 228	
+			backcolor			0 0 .6 .5
+			forecolor			.5  0 0 1
+			border				1
+			bordersize			3
+			bordercolor			1 0 0 1
+			visible				0
+			decoration
+		}
+
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_WARNING
+			rect				260 202 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			170
+			font				2
+			textscale			1    
+			forecolor			1 0 0 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_THIS_WILL_SET_ALL_GAME
+			text2				@MENUS_TO_THEIR_FACTORY_SETTINGS
+			rect				260 230 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			170
+			text2aligny			20
+			font				2
+			textscale			1    
+			forecolor			1 0 0 1
+			visible				0
+			decoration
+		}
+
+		itemDef 
+		{
+			name				options
+			group				defaults
+			text				@MENUS_VID_RESTART3
+			rect				260 286 340 20
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			170
+			font				2
+			textscale			1    
+			forecolor			1 0 0 1
+			visible				0
+			decoration
+		}
+
+
+		itemDef 
+		{
+			name			default_yes_button
+			group			highlights
+			style			WINDOW_STYLE_SHADER
+			rect			443 364 120 24 
+			background		"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor		1 1 1 1
+			decoration
+			visible			0 
+		}
+	
+		// YES button - lose reset defaults
+		itemDef 
+		{
+			name				default_yes
+			group				defaults
+			text				@MENUS_YES
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				443 364 120 24 
+			font				2
+			textscale			1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			-2
+			descText			@MENUS_USE_DEFAULT_SETTINGS
+			forecolor			1 .682 0 1
+			visible				0
+
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ;
+				hide			highlights ;
+				close			all ; 
+				uiscript		resetdefaults
+			}
+			mouseEnter 
+			{ 
+				show			default_yes_button 
+			}
+			mouseExit 
+			{ 
+				hide			default_yes_button
+			}	  	  
+
+		}
+	
+		itemDef 
+		{
+			name			default_no_button
+			group			highlights
+			style			WINDOW_STYLE_SHADER
+			rect			297 364 120 24
+			background		"gfx/menus/menu_buttonback"			// Frame around button
+			forecolor		1 1 1 1
+			decoration
+			visible		0
+		}
+
+		// NO button - return to Main Menu
+		itemDef 
+		{
+			name				default_no
+			group				defaults
+			text				@MENUS_NO
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				297 364 120 24 
+			font				2
+			textscale			1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			60
+			textaligny			-2
+			descText			@MENUS_DO_NOT_RESET_DEFAULT
+			forecolor			1 .682 0 1
+			visible				0
+			action 
+			{ 
+				play			"sound/interface/esc.wav" 		
+				hide			highlights ;
+				hide			default_no_button
+				uiscript 		clearmouseover	default_no ;
+				close			all ; 
+				open			mainMenu ;
+			}
+			mouseEnter 
+			{ 
+				show			default_no_button 
+			}
+			mouseExit 
+			{ 
+				hide			default_no_button
+			}	  	  
+		}
+	}
+}

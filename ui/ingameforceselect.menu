@@ -1,0 +1,2092 @@
+//
+// MOTS FORCE SELECTION SCREEN
+//
+
+{	   
+	menuDef 
+	{
+		name					"ingameForceSelect"
+		fullScreen				1		
+		rect					0 0 640 480	
+		visible					1
+		focusColor				1 1 1 1
+		descX					320
+		descY					424
+		descScale				1
+		descColor				1 .682 0 .8
+		descAlignment				ITEM_ALIGN_CENTER	
+		descTextStyle				1  // No blinking text!
+		fadeClamp				1.0		// sets the fadeup alpha
+		fadeCycle				25		// how often fade happens in milliseconds
+		fadeAmount				0.05		// amount to adjust alpha per cycle	
+		onOpen 
+		{
+			stopVoice
+			
+			// Update force power pics to current force power levels
+
+			uiScript  			"initallocforcepower" "absorb"
+			uiScript  			"initallocforcepower" "heal"
+			uiScript  			"initallocforcepower" "mindtrick"
+			uiScript  			"initallocforcepower" "protect"
+			uiScript  			"initallocforcepower" "jump"
+			uiScript  			"initallocforcepower" "pull"
+			uiScript  			"initallocforcepower" "push"
+			uiScript  			"initallocforcepower" "sense"
+			uiScript  			"initallocforcepower" "speed"
+			uiScript  			"initallocforcepower" "sabdef"
+			uiScript  			"initallocforcepower" "saboff"
+			uiScript  			"initallocforcepower" "sabthrow"
+			uiScript  			"initallocforcepower" "drain"
+			uiScript  			"initallocforcepower" "grip"
+			uiScript  			"initallocforcepower" "lightning"
+			uiScript  			"initallocforcepower" "rage"
+			//uiScript  			"forcehelpactive" 
+      
+      // Give the player needed weapons
+      uiScript  			"giveweapon"	"1"		// Give saber
+			uiScript  			"giveweapon"	"2"		// Give blaster
+			uiScript			  "equipweapon"	"1"		// Start the level with saber		
+		}								
+
+//
+//	MENU BACKGROUND
+//
+
+		itemDef 
+		{
+			name				background
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				0 0 640 480
+			background			"gfx/menus/datapad2"
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+		// Allocate force point
+		itemDef
+		{
+			name				allocate_text
+			type				ITEM_TYPE_TEXT
+			rect				0 5 640 18
+			text				@MENUS_ALLOCATE_FP
+			font				2
+			forecolor			1 1 1 1
+			textscale			.80
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			visible				1
+			decoration
+		}
+
+		// Force point allocated
+		itemDef
+		{
+			name				allocated_text
+			type				ITEM_TYPE_TEXT
+			rect				0 5 640 18
+			text				@MENUS_ALLOCATED_FP
+			font				2
+			forecolor			1 1 1 1
+			textscale			.80
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			visible				0
+			decoration
+		}
+
+// Display character name (should be either "Mara Jade" or "Kyle Katarn")
+
+    itemDef
+		{
+			name				char_name
+			type				ITEM_TYPE_TEXT		
+			rect				0 30 640 18
+			cvar				name
+			font				2
+			textscale   1.1
+			forecolor			1 1 1 1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textstyle     3
+			visible				1
+			decoration
+		}	
+
+//
+//	So these will precache - ABSORB
+//
+
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_1"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_2"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_3"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_1_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_2_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_3_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+
+//
+//	DEALLOCATION BUTTON - this button is hidden until a power is chosen then this
+//				becomes active so the power can be deallocated
+//
+
+		itemDef 
+		{
+			name				deallocate_fbutton
+			group				none
+			type				ITEM_TYPE_BUTTON
+			rect				0 0 0 0
+			forecolor			1 1 1 1
+			visible				0
+			// Decrement force power
+			action
+			{
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				
+				uiScript		"decrementcurrentforcepower" 
+				
+				hide			deallocate_fbutton
+
+				show			force_button
+				//show			force_icon
+				show			force_desc
+				
+//				setfocus		absorb_fbutton
+
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	JUMP BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				jump_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				jump_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 152 32 32
+			background			"gfx/mp/NEW_f_icon_jump"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				jump_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				27 152 96 46
+			forecolor			1 1 1 1
+			visible				1
+			//desctext			"Jump"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		jump_iconpic  forecolor 1 1 1 1
+				setitemcolor		jump_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "jump"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_jump"
+				setitemtext		force_desc	"Jump"
+						
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		jump_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		jump_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "jump"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	27 152 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		jump_iconpic  forecolor 1 1 1 1
+				setitemcolor		jump_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	ABSORB BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				absorb_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+		
+		itemDef
+		{
+			name				absorb_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 152 32 32
+			background			"gfx/mp/NEW_f_icon_lt_absorb"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+		
+		itemDef 
+		{
+			name				absorb_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				336 152 96 46     // 96 = 32 + 64
+			forecolor			1 1 1 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			desctext			@MENUS_ADDFP
+			//desctext			"Absorb"
+			// Show force power description
+			mouseEnter 
+			{ 
+				setitemcolor		absorb_iconpic  forecolor 1 1 1 1
+				setitemcolor		absorb_hexpic  forecolor  1 1 1 1				
+
+				//show			force_icon
+				show			force_desc
+			}			
+			mouseExit 
+			{ 
+				setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+
+			// Because this gets focus when the menu first opens.
+			onFocus	
+			{
+				setitemcolor		absorb_iconpic  forecolor 1 1 1 1
+				setitemcolor		absorb_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "absorb"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_lt_absorb"	
+				setitemtext		force_desc	"Absorb"
+			}
+			
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "absorb"
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	336 152 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		absorb_iconpic  forecolor 1 1 1 1
+				setitemcolor		absorb_hexpic  forecolor  1 1 1 1				
+			}
+		}
+		
+		itemDef
+		{
+			name				absorb_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 152 32 32
+			background			"gfx/mp/NEW_f_icon_lt_absorb"
+			forecolor			1 1 1 .10
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "1"
+        "2"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+			}
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	HEAL BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				heal_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				heal_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_heal"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef 
+		{
+			name				heal_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				336 195 96 46
+			forecolor			1 1 1 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			desctext			@MENUS_ADDFP
+      //desctext			"Heal"
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		heal_iconpic  forecolor 1 1 1 1
+				setitemcolor		heal_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "heal"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_lt_heal"
+				setitemtext		force_desc	"Heal"				
+
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		heal_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		heal_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "heal"
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	412 195 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		heal_iconpic  forecolor 1 1 1 1
+				setitemcolor		heal_hexpic  forecolor  1 1 1 1				
+			}
+		}
+		
+		// Non-clicky...
+
+		itemDef
+		{
+			name				heal_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_heal"
+			forecolor			1 1 1 .10
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "1"
+        "2"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+			}
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	MINDTRICK BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				mindtrick_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				mindtrick_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 237 32 32
+			background			"gfx/mp/NEW_f_icon_lt_mind_trick"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef 
+		{
+			name				mindtrick_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				336 237 96 46
+			forecolor			1 1 1 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+				"3"
+        "4"
+        "11"
+        "12"
+        "13"
+			}
+			//desctext			"Mind Trick"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		mindtrick_iconpic  forecolor 1 1 1 1
+				setitemcolor		mindtrick_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "mindtrick"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_lt_mind_trick"
+				setitemtext		force_desc	"Mind Trick"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		mindtrick_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		mindtrick_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "mindtrick"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	336 237 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		mindtrick_iconpic  forecolor 1 1 1 1
+				setitemcolor		mindtrick_hexpic  forecolor  1 1 1 1				
+			}
+		}
+		
+		// Non-clicky...
+
+		itemDef
+		{
+			name				mindtrick_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 237 32 32
+			background			"gfx/mp/NEW_f_icon_lt_mind_trick"
+			forecolor			1 1 1 .10
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "1"
+        "2"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+			}
+			decoration
+		}
+		
+//----------------------------------------------------------------------------------------------
+//	SENSE BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				sense_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				sense_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 195 32 32
+			background			"gfx/mp/NEW_f_icon_sight"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				sense_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				27 195 96 46
+			forecolor			1 1 1 1
+			visible				1
+			//desctext			"Seeing"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		sense_iconpic  forecolor 1 1 1 1
+				setitemcolor		sense_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "sense"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_sight"
+				setitemtext		force_desc	"Seeing"
+				
+				//show			force_icon
+				show			  force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		sense_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		sense_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "sense"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	27 195 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		sense_iconpic  forecolor 1 1 1 1
+				setitemcolor		sense_hexpic  forecolor  1 1 1 1				
+			}
+		}
+		
+//----------------------------------------------------------------------------------------------
+//	SPEED BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				speed_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				speed_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 237 32 32
+			background			"gfx/mp/NEW_f_icon_speed"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				speed_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				27 237 96 46
+			forecolor			1 1 1 1
+			visible				1
+			//desctext			"Speed"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		speed_iconpic  forecolor 1 1 1 1
+				setitemcolor		speed_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "speed"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_speed"
+				setitemtext		force_desc	"Speed"
+				
+				//show			force_icon
+				show			  force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		speed_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		speed_hexpic  forecolor  .65 .65 .65 1
+				hide			force_desc
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "speed"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	27 237 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		speed_iconpic  forecolor 1 1 1 1
+				setitemcolor		speed_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	PUSH BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				push_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 279 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				push_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 279 32 32
+			background			"gfx/mp/NEW_f_icon_push"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				push_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				27 279 96 46
+			forecolor			1 1 1 1
+			visible				1
+			//desctext			"Push"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		push_iconpic  forecolor 1 1 1 1
+				setitemcolor		push_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "push"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_push"
+				setitemtext		force_desc	"Push"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		push_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		push_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "push"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	27 279 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		push_iconpic  forecolor 1 1 1 1
+				setitemcolor		push_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	PULL BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				pull_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef
+		{
+			name				pull_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 152 32 32
+			background			"gfx/mp/NEW_f_icon_pull"
+			forecolor			.65 .65 .65 1
+			visible				1
+			decoration
+		}
+
+		itemDef 
+		{
+			name				pull_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				178 152 96 46
+			forecolor			1 1 1 1
+			visible				1
+			//desctext			"Pull"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		pull_iconpic  forecolor 1 1 1 1
+				setitemcolor		pull_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "pull"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_pull"
+				setitemtext		force_desc	"Pull"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		pull_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		pull_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "pull"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	178 152 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		pull_iconpic  forecolor 1 1 1 1
+				setitemcolor		pull_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+//----------------------------------------------------------------------------------------------
+//	SABER THROW BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive
+		itemDef 
+		{
+			name				sabthrow_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 196 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+				"2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				sabthrow_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 196 32 32
+			background			"gfx/mp/NEW_f_icon_saber_throw"
+			forecolor			.5 .5 .5 1
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+				"2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef 
+		{
+			name				sabthrow_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				178 196 96 46
+			forecolor			1 1 1 1
+			visible				1
+			// Let's check if we can select this power or not.
+      cvartest			"tier_storyinfo"
+			showcvar
+			{
+				"2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			//desctext			"Saber Throw"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				//setitemcolor		sabthrow_iconpic  forecolor 1 1 1 1
+				//setitemcolor		sabthrow_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "sabthrow"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_saber_throw"
+				setitemtext		force_desc	"Saber Throw"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		sabthrow_iconpic  forecolor .5 .5 .5 1
+				setitemcolor		sabthrow_hexpic  forecolor  .5 .5 .5 1
+				hide			//force_desc
+			}
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "sabthrow"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	178 196 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		sabthrow_iconpic  forecolor 1 1 1 1
+				setitemcolor		sabthrow_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+    // Non-clickable version.
+
+		itemDef
+		{
+			name				sabthrow_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 196 32 32
+			background			"gfx/mp/NEW_f_icon_saber_throw"
+			forecolor			1 1 1 .10   // Grey
+			visible				1
+		  cvarTest			"tier_storyinfo"
+      showCvar
+			{
+			  "1"
+        "5"
+        "6"
+        "7"
+			}
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	GRIP BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive
+		itemDef 
+		{
+			name				grip_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				grip_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 237 32 32
+			background			"gfx/mp/NEW_f_icon_dk_grip"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			decoration
+		}
+		
+		itemDef 
+		{
+			name				grip_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				178 237 96 46
+			forecolor			1 1 1 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "2"
+        "3"
+        "4"
+        "8"
+        "9"
+        "10"
+        "11"
+        "12"
+        "13"
+			}
+			//desctext			"Grip"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		grip_iconpic  forecolor 1 1 1 1
+				setitemcolor		grip_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "grip"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_dk_grip"
+				setitemtext		force_desc	"Grip"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		grip_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		grip_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "grip"				
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	178 237 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		grip_iconpic  forecolor 1 1 1 1
+				setitemcolor		grip_hexpic  forecolor  1 1 1 1								
+			}
+		}
+		
+		// Non-clickable version
+
+		itemDef
+		{
+			name				grip_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 237 32 32
+			background			"gfx/mp/NEW_f_icon_dk_grip"
+			forecolor			.5 .5 .5 .10
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "1"
+        "5"
+        "6"
+        "7"
+			}
+			decoration
+		}
+		
+//----------------------------------------------------------------------------------------------
+//	LIGHTNING BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive
+		itemDef 
+		{
+			name				lightning_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				478 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+			  "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				lightning_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 152 32 32
+			background			"gfx/mp/NEW_f_icon_dk_l1"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+			  "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef 
+		{
+			name				lightning_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				478 152 96 46
+			forecolor			1 1 1 1
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+			  "12"
+        "13"
+			}
+			//desctext			"Lightning"
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		lightning_iconpic  forecolor 1 1 1 1
+				setitemcolor		lightning_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "lightning"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_dk_l1"
+				setitemtext		force_desc	"Lightning"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		lightning_iconpic forecolor .65 .65 .65 1
+				setitemcolor		lightning_hexpic  forecolor  .65 .65 .65 1
+				//hide			force_desc
+			}
+
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "lightning"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	478 152 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		lightning_iconpic  forecolor 1 1 1 1
+				setitemcolor		lightning_hexpic  forecolor  1 1 1 1				
+			}
+		}
+
+    // Non-clicky...
+
+		itemDef
+		{
+			name				lightning_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 152 32 32
+			background			"gfx/mp/NEW_f_icon_dk_l1"
+			forecolor			1 1 1 .10
+			visible				1
+			cvarTest			"tier_storyinfo"
+      showCvar
+			{
+			  "1"
+        "2"
+        "3"
+        "4"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+        "11"
+			}
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//	PROTECT BUTTONS AND BUTTON GRAPHICS
+//----------------------------------------------------------------------------------------------
+		// The hex powerlevel graphic (this has to print first because it's additive)
+		itemDef 
+		{
+			name				protect_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				478 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "12"
+        "13"
+			}
+			decoration
+		}
+
+		itemDef
+		{
+			name				protect_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_protect"
+			forecolor			.65 .65 .65 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "12"
+        "13"
+			}
+			decoration
+		}
+		
+		itemDef 
+		{
+			name				protect_fbutton
+			group				force_button
+			type				ITEM_TYPE_BUTTON
+			rect				478 195 96 46
+			forecolor			1 1 1 1
+			visible				1
+			cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "12"
+        "13"
+			}
+			desctext			@MENUS_ADDFP
+			// Show force power description
+			mouseEnter 
+			{ 	// Because on opening, absorb is given focus
+				//setitemcolor		absorb_iconpic  forecolor .65 .65 .65 1
+				//setitemcolor		absorb_hexpic  forecolor  .65 .65 .65 1
+				
+				setitemcolor		protect_iconpic  forecolor 1 1 1 1
+				setitemcolor		protect_hexpic  forecolor  1 1 1 1
+				
+				// Hide all force level descrptions and have script determine the level of this one
+				//hide			leveltext
+				uiScript  		"showforceleveldesc" "protect"
+				
+				setitembackground	force_icon	"gfx/mp/NEW_f_icon_lt_protect"
+				setitemtext		force_desc	"Protection"
+				
+				//show			force_icon
+				show			force_desc
+			}
+			mouseExit 
+			{ 
+				setitemcolor		protect_iconpic  forecolor .65 .65 .65 1
+				setitemcolor		protect_hexpic  forecolor  .65 .65 .65 1
+			}
+
+			// Increment force power
+			action
+			{	// hide descriptions and let affectforcepowerlevel determine the corect one
+				//hide			leveltext
+				uiScript		"affectforcepowerlevel" "protect"
+				
+				hide			force_button
+				
+				setitemrect		deallocate_fbutton	478 195 96 46
+				show			deallocate_fbutton
+				
+				setitemcolor		protect_iconpic  forecolor 1 1 1 1
+				setitemcolor		protect_hexpic  forecolor  1 1 1 1				
+			}
+		}
+		
+		// Non-clickable version
+
+		itemDef
+		{
+			name				protect_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_protect"
+			forecolor			1 1 1 .10
+			visible				1
+      cvartest			"tier_storyinfo"
+      showcvar
+			{
+			  "1"
+        "2"
+        "3"
+        "4"
+        "5"
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+        "11"
+			}
+			decoration
+		}
+
+//----------------------------------------------------------------------------------------------
+//  FORCE DESCRIPTION
+//----------------------------------------------------------------------------------------------
+
+    itemDef 
+		{
+			name				force_desc
+			rect				320 400 640 480
+			font				4
+			text				"This is the text"
+			forecolor			1 1 1 1
+			textscale			1.25
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			0
+			textaligny			0
+			textstyle       3
+			visible				0		
+			decoration
+		}
+
+// QUIT-BUTTON
+
+    itemDef 
+		{
+			name				cancelbutton
+			text				"Quit"
+			type				ITEM_TYPE_BUTTON
+			style				WINDOW_STYLE_EMPTY
+			rect				45 445 200 32  
+			font				4
+			textscale			1.5
+			textalign			ITEM_ALIGN_CENTER
+			textstyle			3
+			textalignx			65
+			textaligny			-1
+			forecolor			1 1 1 1
+			visible				1
+			action 
+			{ 
+				close			all 
+				uiScript		Leave
+			}
+		}
+
+/* DEBUG
+    itemDef 
+		{	
+			name				debug
+			type				ITEM_TYPE_MULTI
+			text				"tier_storyinfo's value: "
+			rect					245 445 200 32
+			textalign			ITEM_ALIGN_RIGHT
+			textalignx			174
+			textaligny			0
+			font 				4
+			textscale 			1
+			forecolor			.615 .615 .956 1
+			cvar				"tier_storyinfo"
+      cvarFloatList	{  
+      "1" 1 
+      "2" 2 
+      "3" 3
+      "4" 4 
+      "5" 5 
+      "6" 6 
+      "7" 7 
+      "8" 8 
+      "9" 9 
+      "10" 10
+      "11" 11  
+      "12" 12
+      "13" 13 
+      }
+			visible				1
+			
+      action 
+			{
+				play			"sound/interface/button1.wav" ; 
+			}
+		}
+*/
+
+//		
+// START MISSION
+//
+
+// START LEVEL 2
+
+		itemDef
+		{
+			name				beginmission2
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar    // Show this button only if...
+			{
+				"1";      // ...previous level was the first one
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{
+				close		  all;
+				exec       "maptransition asteroid_crust"     // Start next map
+				//exec      "maptransition mp/duel1"          // testing...
+			}
+		}
+
+// START LEVEL 3
+
+    itemDef
+		{
+			name				beginmission3
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"2";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition asteroid_core"               // Start map
+			}
+		}
+	
+// START LEVEL 4
+
+    itemDef
+		{
+			name				beginmission4
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"3";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition asteroid_destruct"               // Start map
+			}
+		}
+		
+// START LEVEL 5 - 1ST MARA JADE LEVEL
+
+    itemDef
+		{
+			name				beginmission5
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"4";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition kapas_palace"               // Start map
+			}
+		}
+		
+// START LEVEL 6
+
+    itemDef
+		{
+			name				beginmission6
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"5";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition katrassii_a"               // Start map
+			}
+		}
+		
+// START LEVEL 7
+
+    itemDef
+		{
+			name				beginmission7
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"6";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition katrassii_b"               // Start map
+			}
+		}
+		
+// START LEVEL 8
+
+    itemDef
+		{
+			name				beginmission8
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"7";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition takaras_stronghold"               // Start map
+			}
+		}
+
+// START LEVEL 9
+
+    itemDef
+		{
+			name				beginmission9
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"8";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition escort_ship"               // Start map
+			}
+		}
+
+// START LEVEL 10
+
+    itemDef
+		{
+			name				beginmission10
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"9";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{   
+				close		  all;
+				exec      "maptransition ship_yards"               // Start map
+			}
+		}
+		
+// START LEVEL 11
+
+    itemDef
+		{
+			name				beginmission11
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"10";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition kaerobanis_base"               // Start map
+			}
+		}
+
+// START LEVEL 12
+
+    itemDef
+		{
+			name				beginmission12
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"11";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition dromund_kaas"               // Start map
+			}
+		}
+
+// START LEVEL 13
+
+    itemDef
+		{
+			name				beginmission13
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"12";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition sith_temple"               // Start map
+			}
+		}
+
+// START LEVEL 14
+
+    itemDef
+		{
+			name				beginmission14
+			type				ITEM_TYPE_BUTTON
+			rect				500 447 120 24
+			text				"OK"
+			font				2
+			forecolor			1 1 1 1
+			textscale			1
+			textstyle     3
+			textalign			ITEM_ALIGN_LEFT
+			textalignx			0
+			textaligny			-1
+			desctext			"Start next level."
+			visible			1
+			cvarTest			"tier_storyinfo"
+			showcvar
+			{
+				"13";
+			}
+			mouseEnter 
+			{ 
+			}
+			mouseExit 
+			{ 
+			}
+			action
+			{    
+				close		  all;
+				exec      "maptransition temple_catacombs"              // Start map
+			}
+		}
+	}
+}

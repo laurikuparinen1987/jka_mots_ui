@@ -1,0 +1,750 @@
+//
+// FORCE POWERS MENU FOR MOTS TC
+//
+
+{
+
+	menuDef 
+	{
+		name					"datapadForcePowersMenu"
+		fullScreen				1							
+		rect					0 0 640 480						
+		visible					1							
+		focusColor				1 1 1 1
+		descX					320
+		descY					444
+		descScale				1.15
+		descColor				1 1 1 1 
+		descAlignment				ITEM_ALIGN_CENTER		
+
+		onESC 
+		{ 
+				play			"sound/interface/esc.wav" 					
+				uiScript		closedatapad		
+		}
+
+		onOpen
+		{ 
+			uiScript		    nextDataPadForcePower
+			uiScript  			"initallocforcepower" "absorb"
+			uiScript  			"initallocforcepower" "heal"
+			uiScript  			"initallocforcepower" "mindtrick"
+			uiScript  			"initallocforcepower" "protect"
+			uiScript  			"initallocforcepower" "jump"
+			uiScript  			"initallocforcepower" "pull"
+			uiScript  			"initallocforcepower" "push"
+			uiScript  			"initallocforcepower" "sense"
+			uiScript  			"initallocforcepower" "speed"
+			uiScript  			"initallocforcepower" "sabdef"
+			uiScript  			"initallocforcepower" "saboff"
+			uiScript  			"initallocforcepower" "sabthrow"
+			uiScript  			"initallocforcepower" "drain"
+			uiScript  			"initallocforcepower" "grip"
+			uiScript  			"initallocforcepower" "lightning"
+			uiScript  			"initallocforcepower" "rage"
+		}
+
+//
+// BACKGROUND
+//
+
+		itemDef 
+		{
+			name				background
+			group				none
+			rect				0 0 640 480
+			style				WINDOW_STYLE_SHADER
+			background			"gfx/menus/datapad2"	
+			forecolor			1 1 1 1
+			visible				1
+			decoration
+		}
+
+    itemDef
+		{
+			name				force_title
+			type				ITEM_TYPE_TEXT
+			rect				0 5 640 18
+			text				"Force Powers"
+			font				2
+			forecolor			1 1 1 1
+			textscale			.80
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			visible				1
+			decoration
+		}
+
+// Display character name (should be either "Mara Jade" or "Kyle Katarn")
+
+    itemDef
+		{
+			name				char_name
+			type				ITEM_TYPE_TEXT		
+			rect				0 30 640 18
+			cvar				name
+			font				2
+			textscale   1.1
+			forecolor			1 1 1 1
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			320
+			textstyle     3
+			visible				1
+			decoration
+		}	
+
+//
+//	So these will precache - ABSORB
+//
+
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_1"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_2"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_3"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_1_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_2_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		itemDef 
+		{
+			name				precache
+			group				none
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_3_gold"
+			forecolor			.65 .65 .65 1
+			visible				0
+			decoration
+		}
+		
+		// Display all force powers and their levels
+		// Unfortunately, we can't hide the unwanted powers
+		
+		itemDef 
+		{
+			name				jump_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Jump"
+			mouseEnter
+			{
+			 	 setitemcolor		jump_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		jump_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		jump_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		jump_hexpic  forecolor .5 .5 .5 1  
+      } 
+		}
+
+		itemDef
+		{
+			name				jump_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 152 32 32
+			background			"gfx/mp/NEW_f_icon_jump"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Jump"
+			mouseEnter
+			{
+			 	 setitemcolor		jump_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		jump_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		jump_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		jump_hexpic  forecolor .5 .5 .5 1 
+      } 
+		}
+		
+		itemDef 
+		{
+			name				absorb_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Absorb"
+			mouseEnter
+			{
+			 	 setitemcolor		absorb_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		absorb_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		absorb_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		absorb_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef
+		{
+			name				absorb_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 152 32 32
+			background			"gfx/mp/NEW_f_icon_lt_absorb"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Absorb"
+			mouseEnter
+			{
+			 	 setitemcolor		absorb_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		absorb_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		absorb_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		absorb_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+    itemDef 
+		{
+			name				heal_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Healing"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		heal_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		heal_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		heal_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		heal_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				heal_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_heal"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Healing"
+			mouseEnter
+			{
+			 	 setitemcolor		heal_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		heal_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		heal_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		heal_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+    itemDef 
+		{
+			name				mindtrick_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				336 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Mind Trick"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		mindtrick_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		mindtrick_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		mindtrick_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		mindtrick_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				mindtrick_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				412 237 32 32
+			background			"gfx/mp/NEW_f_icon_lt_mind_trick"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Mind Trick"
+			mouseEnter
+			{
+			 	 setitemcolor		mindtrick_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		mindtrick_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		mindtrick_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		mindtrick_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				sense_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Seeing"
+			mouseEnter
+			{
+			 	 setitemcolor		sense_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		sense_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		sense_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		sense_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				sense_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 195 32 32
+			background			"gfx/mp/NEW_f_icon_sight"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Seeing"
+			mouseEnter
+			{
+			 	 setitemcolor		sense_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		sense_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		sense_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		sense_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				speed_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Speed"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		speed_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		speed_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		speed_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		speed_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				speed_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 237 32 32
+			background			"gfx/mp/NEW_f_icon_speed"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Speed"
+			mouseEnter
+			{
+			 	 setitemcolor		speed_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		speed_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		speed_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		speed_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				push_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				27 279 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Push"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		push_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		push_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		push_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		push_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				push_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				103 279 32 32
+			background			"gfx/mp/NEW_f_icon_push"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Push"
+			mouseEnter
+			{
+			 	 setitemcolor		push_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		push_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		push_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		push_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				pull_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Pull"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		pull_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		pull_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		pull_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		pull_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				pull_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 152 32 32
+			background			"gfx/mp/NEW_f_icon_pull"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Pull"
+			mouseEnter
+			{
+			 	 setitemcolor		pull_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		pull_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		pull_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		pull_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				sabthrow_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 196 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Saber Throw"
+			decoration
+			mouseEnter
+      {
+			 	 setitemcolor		sabthrow_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		sabthrow_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		sabthrow_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		sabthrow_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				sabthrow_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 196 32 32
+			background			"gfx/mp/NEW_f_icon_saber_throw"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Saber Throw"
+			mouseEnter
+			{
+			 	 setitemcolor		sabthrow_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		sabthrow_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		sabthrow_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		sabthrow_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+    itemDef 
+		{
+			name				grip_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				178 237 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Grip"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		grip_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		grip_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		grip_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		grip_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				grip_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				254 237 32 32
+			background			"gfx/mp/NEW_f_icon_dk_grip"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Grip"
+			mouseEnter
+			{
+			 	 setitemcolor		grip_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		grip_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		grip_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		grip_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+		
+		itemDef 
+		{
+			name				lightning_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				478 152 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Lightning"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		lightning_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		lightning_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		lightning_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		lightning_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				lightning_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 152 32 32
+			background			"gfx/mp/NEW_f_icon_dk_l1"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Lightning"
+			mouseEnter
+			{
+			 	 setitemcolor		lightning_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		lightning_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		lightning_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		lightning_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+    itemDef 
+		{
+			name				protect_hexpic
+			group				hexpic
+			style				WINDOW_STYLE_SHADER
+			rect				478 195 64 32
+			background			"gfx/menus/hex_pattern_0"
+			forecolor			.5 .5 .5 1
+			visible				1
+			desctext    "Protection"
+			decoration
+			mouseEnter
+			{
+			 	 setitemcolor		protect_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		protect_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		protect_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		protect_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+		itemDef
+		{
+			name				protect_iconpic
+			group				iconpic
+			style				WINDOW_STYLE_SHADER
+			rect				554 195 32 32
+			background			"gfx/mp/NEW_f_icon_lt_protect"
+			forecolor			.5 .5 .5 1
+			visible				1
+			decoration
+			desctext    "Protection"
+			mouseEnter
+			{
+			 	 setitemcolor		protect_iconpic  forecolor 1 1 1 1
+			 	 setitemcolor		protect_hexpic  forecolor 1 1 1 1
+      }
+      mouseExit 
+			{
+         setitemcolor		protect_iconpic  forecolor .5 .5 .5 1
+         setitemcolor		protect_hexpic  forecolor .5 .5 .5 1
+      } 
+		}
+
+//
+// CLOSE FORCE POWERS MENU-BUTTON 
+//
+		itemDef 
+		{
+			name				close
+			group				none
+			style				WINDOW_STYLE_EMPTY
+			type				ITEM_TYPE_BUTTON
+			rect				500 420 120 25 
+			text				"Close"
+			font				4
+			textscale			1.5
+			textalignx			60
+			textalign			ITEM_ALIGN_CENTER
+			forecolor			1 1 1 1
+			visible				1	  	  
+			
+			action 
+			{ 
+				play			"sound/interface/button1.wav" ; 
+				//uiScript		closedatapad			
+				close     all
+				open      ingameMainMenu
+			}
+		}
+		
+	}
+}
